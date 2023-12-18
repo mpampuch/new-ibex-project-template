@@ -31,7 +31,7 @@ conda deactivate mamba
 
 If that still doesn't work, try to troubleshoot using this video: https://www.youtube.com/watch?v=X-W7aVXH3_w
 
-Side note: This is the best video on what conda is and how and why to use it. It's 3h long and very dry but it's extremely useful in order to know how to effectively stay organized before embarking on a large scale data analysis https://www.youtube.com/watch?v=GW9_AXz-G5s
+Side note: This is the best video on what conda is and how and why to use it. It's 3h long and very dry but it's extremely useful in order to know how to effectively stay organized before analyzing large data https://www.youtube.com/watch?v=GW9_AXz-G5s
 
 ## Activating VSCode (Code Server)
 
