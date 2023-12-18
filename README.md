@@ -22,7 +22,6 @@ Conda is used for managing your programs and software packages. You need to make
 
 ```bash
 # Make sure you are in your project folder before starting
-
 conda activate mamba
 mamba env create --prefix ./env --file environment.yml --force
 conda activate $(pwd)/env
