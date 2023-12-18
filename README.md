@@ -3,16 +3,22 @@ This repository contiains all the necessary files and instructions to initialize
 
 ## Cloning this directory into IBEX
 
-
+On IBEX, all work should be performed in your work folder. This is found at `/ibex/user/YOUR_KAUST_USERNAME`
 ```bash
+# Change into your work folder
+cd /ibex/user/YOUR_KAUST_USERNAME
+
+# Create a directory for your data analysis project and change into it
 mkdir YOUR_PROJECT_NAME
 cd YOUR_PROJECT_NAME
 
+# Copy all the files in this repository into your new project directory
 git clone --depth 1 https://github.com/mpampuch/new-ibex-project-template temp_folder && rsync -av temp_folder/ . && rm -rf temp_folder
-
 ```
 
 ## Activating a conda environement
+
+Conda is used for managing your programs and software packages. You need to make sure you are able to activate the enviroment in the `env` folder found in your new project for the following steps to work. To do so, try running the commands
 
 ```bash
 conda activate mamba
@@ -29,7 +35,7 @@ conda install -c conda-forge mamba
 conda deactivate mamba
 ```
 
-If that still doesn't work, try to troubleshoot using this video: https://www.youtube.com/watch?v=X-W7aVXH3_w
+If that still doesn't work, make sure you have conda installed. Try to troubleshoot using this video: https://www.youtube.com/watch?v=X-W7aVXH3_w
 
 **Side note:** This is the best video on what conda is and how and why to use it. It's 3h long and very dry but it's extremely useful in order to know how to effectively stay organized before analyzing large data https://www.youtube.com/watch?v=GW9_AXz-G5s
 
