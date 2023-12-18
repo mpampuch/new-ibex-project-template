@@ -5,6 +5,11 @@ This repository contains all the coded to initialize a new directory on the KAUS
 
 
 ```
+mkdir YOUR_PROJECT_NAME
+cd YOUR_PROJECT_NAME
+
+git clone --depth 1 https://github.com/mpampuch/new-ibex-project-template temp_folder && rsync -av temp_folder/ . && rm -rf temp_folder
+
 ```
 
 ## Activating a conda environement
