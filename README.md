@@ -52,7 +52,7 @@ sbatch bin/launch-code-server.sbatch
 watch -d -n 60 squeue -u YOUR_IBEX_USERNAME
 # Once your job is running, continue with the following steps
 
-# Code Server should now be activating. This should be almost instantaneous or very quick. Monitor it (and view the output of the initialization) by running
+# code-server should now be activating. This should be almost instantaneous or very quick. Monitor it (and view the output of the initialization) by running
 tail -n 1000 -f bin/launch-code-server-*
 # Note: You can use Ctrl + C to get out of this view
 
