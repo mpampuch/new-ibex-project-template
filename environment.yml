@@ -1,0 +1,12 @@
+---
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - code-server=4.16.1
+  - nextflow
+  - nf-core
+  - multiqc
+  - singularity
+  - snakemake

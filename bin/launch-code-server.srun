@@ -1,0 +1,33 @@
+#!/bin/bash --login
+
+set -e
+
+# setup the environment
+PROJECT_DIR="$PWD"
+echo "PROJECT_DIR = $PROJECT_DIR"
+ENV_PREFIX="$PROJECT_DIR"/env
+
+module purge
+echo "Activating $ENV_PREFIX"
+conda activate "$ENV_PREFIX"
+
+# setup ssh tunneling 
+COMPUTE_NODE=$(hostname -s) 
+CODE_SERVER_PORT=$SLURM_STEP_RESV_PORTS
+
+echo "
+To connect to the compute node ${COMPUTE_NODE} on Ibex running your Code Server, 
+you need to create an ssh tunnel from your local machine to login node on Ibex 
+using the following command.
+
+ssh -L ${CODE_SERVER_PORT}:${COMPUTE_NODE}:${CODE_SERVER_PORT} ${USER}@ilogin.ibex.kaust.edu.sa 
+
+Next, you need to copy the url provided below and paste it into the browser 
+on your local machine.
+
+localhost:${CODE_SERVER_PORT}/?folder=${PROJECT_DIR}
+
+" >&2
+
+# launch code server
+code-server --auth none --bind-addr ${COMPUTE_NODE}:${CODE_SERVER_PORT} "$PROJECT_DIR"
