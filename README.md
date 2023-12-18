@@ -33,9 +33,9 @@ If that still doesn't work, try to troubleshoot using this video: https://www.yo
 
 **Side note:** This is the best video on what conda is and how and why to use it. It's 3h long and very dry but it's extremely useful in order to know how to effectively stay organized before analyzing large data https://www.youtube.com/watch?v=GW9_AXz-G5s
 
-## Activating VSCode (Code Server)
+## Activating VSCode (code-server)
 
-Trying to do data science projects in your Terminal will make you go insane. Using Code Server (VSCode for a remote machine) will make writing code and working on a remote machine 10x easier.
+Trying to do data science projects in your Terminal will make you go insane. Using code-server (VSCode for a remote machine) will make writing code and working on a remote machine 10x easier.
 
 To activate run
 
@@ -66,7 +66,7 @@ At this point switch over to your local machine and open a new terminal
 ssh -L ${CODE_SERVER_PORT}:${COMPUTE_NODE}:${CODE_SERVER_PORT} ${USER}@ilogin.ibex.kaust.edu.sa 
 ```
 
-Do not close this terminal. If you do the RStudio Server session will stop running. Move it to the background somewhere or minimize the window.
+Do not close this terminal. If you do the code-server session will stop running. Move it to the background somewhere or minimize the window.
 
 Now open a browser on your local machine.
 
