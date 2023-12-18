@@ -21,7 +21,7 @@ git clone --depth 1 https://github.com/mpampuch/new-ibex-project-template temp_f
 Conda is used for managing your programs and software packages. You need to make sure you are able to activate the enviroment in the `env` folder found in your new project for the following steps to work. To do so, try running the commands
 
 ```bash
-# Make sure you are in your project folder before starting
+# Make sure you are in your new project folder before starting
 conda activate mamba
 mamba env create --prefix ./env --file environment.yml --force
 conda activate $(pwd)/env
