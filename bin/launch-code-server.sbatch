@@ -28,7 +28,7 @@ fi
 
 # Remove previous output and error files, excluding the current job's files
 for file in "${SCRIPT_DIR}"/launch-code-server*.out "${SCRIPT_DIR}"/launch-code-server*.err; do
-    if [[ "${file}" != "${SCRIPT_DIR}"/launch-code-server-"${SLURM_JOB_ID}"-slurm.out && "${file}" != "${SCRIPT_DIR}"/launch-code-server-"${SLURM_JOB_ID}"-slurm.err ]]; then
+    if [ "${file}" != "${SCRIPT_DIR}"/launch-code-server-"${SLURM_JOB_ID}"-slurm.out && "${file}" != "${SCRIPT_DIR}"/launch-code-server-"${SLURM_JOB_ID}"-slurm.err ]; then
         rm -v "${file}"
     fi
 done

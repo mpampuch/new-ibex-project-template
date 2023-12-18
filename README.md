@@ -3,6 +3,10 @@ This repository contains all the coded to initialize a new directory on the KAUS
 
 ## Cloning this directory into IBEX
 
+
+```
+```
+
 ## Activating a conda environement
 psuedocode 
 
