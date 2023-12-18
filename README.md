@@ -1,5 +1,5 @@
 # new-ibex-project-template
-This repository contains all the coded to initialize a new directory on the KAUST IBEX that contains all the necessary files to start a data analysis project.
+This repository contiains all the necessary files and instructions to initialize a new directory on the KAUST IBEX for a data analysis project.
 
 ## Cloning this directory into IBEX
 
