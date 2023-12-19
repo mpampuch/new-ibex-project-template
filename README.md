@@ -15,6 +15,7 @@ cd YOUR_PROJECT_NAME
 # Copy all the files in this repository into your new project directory
 git clone --depth 1 https://github.com/mpampuch/new-ibex-project-template temp_folder && rsync -av temp_folder/ . && rm -rf temp_folder
 ```
+Now all the files and programs you to complete your specific data analysis project will be stored in the folder you created. Copy or move all the data you need into this folder to make sure you stay organized.
 
 ## Activating a conda environement
 
