@@ -105,7 +105,7 @@ watch -d -n 10 squeue -u YOUR_IBEX_USERNAME
 
 Example: 
 
-![IBEX working environment](https://imgur.com/a/KAq7vOg)
+![IBEX working environment](https://i.imgur.com/hNDYT1c.jpg)
 
 
 
