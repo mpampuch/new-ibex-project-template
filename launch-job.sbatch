@@ -10,7 +10,7 @@
 #SBATCH --mail-type=ALL
 
 # Activate your conda environment for your job
-conda activate "$(pwd)"/env
+conda activate "$(pwd)/env"
 
 # Run your job script here
 srun YOUR_JOB_SCRIPT

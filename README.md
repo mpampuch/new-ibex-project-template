@@ -24,7 +24,7 @@ Conda is used for managing your programs and software packages. You need to make
 # Make sure you are in your new project folder before starting
 conda activate mamba
 mamba env create --prefix ./env --file environment.yml --force
-conda activate $(pwd)/env
+conda activate "$(pwd)/env"
 ```
 
 If you don't have a conda environment called mamba, run the following code first before retrying the above
@@ -50,7 +50,7 @@ To activate run
 # Make sure you are in your project folder before starting
 
 # Activate your conda environment
-conda activate $(pwd)/env
+conda activate "$(pwd)/env"
 
 # Run the script to launch code-server
 sbatch bin/launch-code-server.sbatch
@@ -121,7 +121,7 @@ Eventually you will need to use R to analyze some data. The only viable way to u
 # Make sure you are in your project folder before starting
 
 # Activate your conda environment
-conda activate $(pwd)/env
+conda activate "$(pwd)/env"
 
 # Run the script to launch RStudio Server
 sbatch bin/launch-rstudio-server.sbatch
