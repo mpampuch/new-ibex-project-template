@@ -56,12 +56,13 @@ conda activate $(pwd)/env
 sbatch bin/launch-code-server.sbatch
 
 # Monitor your SLURM process until your job starts running
-watch -d -n 60 squeue -u YOUR_IBEX_USERNAME
+watch -d -n 10 squeue -u YOUR_IBEX_USERNAME
 # Once your job is running, continue with the following steps
+# Note: You can use Ctrl + C (on Mac) to get out of this view
 
 # code-server should now be activating. This should be almost instantaneous or very quick. Monitor it (and view the output of the initialization) by running
 tail -n 1000 -f bin/launch-code-server-*
-# Note: You can use Ctrl + C to get out of this view
+# Note: You can use Ctrl + C (on Mac) to get out of this view
 
 # Once it's finished, proceed to the next steps
 ```
@@ -84,6 +85,29 @@ localhost:${CODE_SERVER_PORT}/?folder=${PROJECT_DIR}
 
 Now you should be able to have a VSCode-like view of your IBEX directory through your browser window. Any files or work you do here are directly saved on the IBEX.
 
+## Running a job on IBEX
+
+Jobs on IBEX should be executed using the SLURM job scheduler. The best way to do this is to put the program you want to execute inside the `launch-job.sbatch` script and then run it as follows:
+
+```bash
+sbatch launch-job.sbatch
+```
+
+You can monitor your job using `squeue`
+
+```bash
+# Monitor your SLURM process to see when your job starts running
+watch -d -n 10 squeue -u YOUR_IBEX_USERNAME
+# Note: You can use Ctrl + C (on Mac) to get out of this view
+```
+
+**Note:** Jobs should only be submitted on *login nodes* on IBEX. It's often tempting to run all your jobs from code-server because that's where you'll be doing most of your work, but in order to get code-server up and running you had to run the initialization through a job so code-server is running on a *compute node*. The way I like to do my workflow is to have a split screen of my code-server window and my terminal. On code-server is where I write all my programs and configurations, and on the terminal is where I execute the jobs when I'm ready.
+
+Example: 
+
+![Alt text](image.png)
+
+
 
 ## Backing up your code-server-extensions
 
@@ -103,12 +127,13 @@ conda activate $(pwd)/env
 sbatch bin/launch-rstudio-server.sbatch
 
 # Monitor your SLURM process until your job starts running
-watch -d -n 60 squeue -u YOUR_IBEX_USERNAME
+watch -d -n 10 squeue -u YOUR_IBEX_USERNAME
 # Once your job is running, continue with the following steps
+# Note: You can use Ctrl + C (on Mac) to get out of this view
 
 # RStudio Server should now be activating. This could take upwards of 10 minutes. Monitor it (and view the output of the initialization) by running
 tail -n 1000 -f bin/launch-rstudio-server-*
-# Note: You can use Ctrl + C to get out of this view
+# Note: You can use Ctrl + C (on Mac) to get out of this view
 
 # Once it's finished, proceed to the next steps
 ```
