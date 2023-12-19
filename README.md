@@ -157,7 +157,7 @@ http://localhost:${PORT}
 
 You should be redirected to RStudio Server.
 
-RStudio Server requires you to be authenticated. The credentials should be in the Studio Server initialiation output
+RStudio Server requires you to be authenticated. The credentials should be in the RStudio Server initialiation output
 
 ```bash
 user: KAUST_USERNAME
