@@ -113,7 +113,6 @@ Example:
 
 ## Backing up your code-server-extensions
 
-# ibex-code-server-extensions-backup
 This repository contains all the files for the extensions I downloaded for use on code-server on the KAUST IBEX https://github.com/mpampuch/ibex-code-server-extensions-backup.
 
 Code server extensions are really helpful for a variety of tasks and make writing programs less tedius and less error-prone. In this repository I've curated the most essential ones in my opinion so far for performing work on code-server. 
