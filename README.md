@@ -173,6 +173,6 @@ setwd("/mnt")
 
 And in the `Files` pane, click on  `More` (the gear icon) -> `Go To Working Directory`
 
-Now you're finally ready to begin working in RStudio Server. Any files you create will automatically appear in your project directory in IBEX.
+Now you're finally ready to begin working in RStudio Server. You can now access all the data you have in your project folder on IBEX and any files you create will automatically appear in this folder.
 
 NOTE: If you are creating a new R project from RStudio Server, make sure you create the project as a subdirectory of /mnt
