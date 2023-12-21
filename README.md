@@ -19,7 +19,7 @@ Now all the files and programs you to complete your specific data analysis proje
 
 ## Activating a conda environement
 
-Conda is used for managing your programs and software packages. You need to make sure you are able to activate the enviroment in the `env` folder found in your new project for the following steps to work. The `env` folder is created using the the `environment.yml ` file. Modify this file to include any softwares or packages that you will need to perform your data analysis. To find out how to correctly install the tool that you need, search for it on https://anaconda.org/ and copy the name of the tool exactly as it appears on the website into the `dependencies:` section of the `environment.yml` file. Once you have all the tools you need to conduct your analysis, run the following commands.
+Conda is used for managing your programs and software packages. You need to make sure you are able to activate the enviroment in the `env` folder found in your new project for the following steps to work. The `env` folder is created using the the `environment.yml` file. Modify this file to include any softwares or packages that you will need to perform your data analysis. To find out how to correctly install the tool that you need, search for it on https://anaconda.org/ and copy the name of the tool exactly as it appears on the website into the `dependencies:` section of the `environment.yml` file. Once you have all the tools you need to conduct your analysis, run the following commands.
 
 ```bash
 # Make sure you are in your new project folder before starting
