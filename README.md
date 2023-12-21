@@ -127,11 +127,11 @@ Your IBEX home directory stores is found at `/home/YOUR_KAUST_USERNAME`. No work
 
 ```bash
 # Change into your home directory
-cd /home/YOUR_KAUST_USERNAME # or just do 'cd ~'
+cd /home/YOUR_KAUST_USERNAME # or just do cd ~
 
 # Clone this repository into your home directory
 git pull https://github.com/mpampuch/ibex-code-server-extensions-backup
-# You may have to run 'module load git' if you don't have git activated
+# You may have to run module load git if you don't have git activated
 ```
 
 ### Import the extensions into your project
