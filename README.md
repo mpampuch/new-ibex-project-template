@@ -75,7 +75,7 @@ At this point switch over to your local machine and open a new terminal
 ssh -L ${CODE_SERVER_PORT}:${COMPUTE_NODE}:${CODE_SERVER_PORT} ${USER}@ilogin.ibex.kaust.edu.sa 
 ```
 
-Do not close this terminal. If you do the code-server session will stop running. Move it to the background somewhere or minimize the window.
+**Do not close this terminal.** If you do the code-server session will stop running. Move it to the background somewhere or minimize the window.
 
 Now open a browser on your local machine.
 
@@ -200,7 +200,7 @@ At this point switch over to your local machine and open a new terminal
 ssh -L ${PORT}:${HOSTNAME}:${PORT} ${SINGULARITYENV_USER}@ilogin.ibex.kaust.edu.sa
 ```
 
-Do not close this terminal. If you do the RStudio Server session will stop running. Move it to the background somewhere or minimize the window.
+**Do not close this terminal.** If you do the RStudio Server session will stop running. Move it to the background somewhere or minimize the window.
 
 Now open a browser on your local machine.
 
