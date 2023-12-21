@@ -115,7 +115,7 @@ Example:
 
 This repository contains all the files for the extensions I downloaded for use on code-server on the KAUST IBEX https://github.com/mpampuch/ibex-code-server-extensions-backup.
 
-Code server extensions are really helpful for a variety of tasks and make writing programs less tedius and less error-prone. In this repository I've curated the most essential ones in my opinion so far for performing work on code-server. 
+Code server extensions are really helpful for a variety of tasks and make writing programs less tedius and less error-prone. I've curated the most essential ones in my opinion for using and performing data analysis on code-server. 
 
 When initializing code-server on the IBEX from a new project folder, sometimes your extensions don't get saved to this new code-server instance. It would be very annoying to have to re-install every single extension you downloaded from a previous instance every single time you open up code-server so as a work-around I've created a backup folder with all the extension files so that you can just import them all with one command. 
 
