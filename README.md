@@ -41,6 +41,27 @@ If that still doesn't work, make sure you have conda installed. Try to troublesh
 
 **Side note:** This is the best video on what conda is and how and why to use it. It's 3h long and very dry but it's extremely useful in order to know how to effectively stay organized before analyzing large data https://www.youtube.com/watch?v=GW9_AXz-G5s
 
+### A note on installing dependencies
+
+Most of the dependencies you will need should be able to be found on https://anaconda.org/. However, some Python packages may not be able to be found in the anaconda repository and may need to be installed using `pip` ([see here for more info](https://pypi.org/project/pip/)). To install packages using conda as well as pip, you need to create a `requirements.txt` file in addition to your `environment.yml` file. 
+1. Inside `requirements.txt` add all your Python specific packages (and optionally with versions that you want to install using pip). See [here](https://learnpython.com/blog/python-requirements-file/) for further instructions.
+2. Inside `environment.yml`, under the `dependencies:` section add the following code:
+```yml
+dependencies:
+  - pip
+  - pip:
+      - '-r requirements.txt'
+```
+- You may need to prefix `file:` to your `requirements.txt`. Example:
+```yml
+dependencies:
+  - pip
+  - pip:
+      - '-r file:requirements.txt'
+```
+
+With these adjustments, you should be able to install every software needed for your data analysis project.
+
 ## Activating VSCode (code-server)
 
 Trying to do data science projects in your Terminal will make you go insane. Using code-server (VSCode for a remote machine) will make writing code and working on a remote machine 10x easier.
