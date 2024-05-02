@@ -8,5 +8,5 @@ dependencies:
   - nextflow
   - nf-core
   - multiqc
-  - singularity
-  - snakemake
+  
+  
