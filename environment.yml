@@ -8,5 +8,6 @@ dependencies:
   - nextflow
   - nf-core
   - multiqc
+  - singularity=3.8.6
   
   
