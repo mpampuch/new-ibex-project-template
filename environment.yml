@@ -7,5 +7,4 @@ dependencies:
   - code-server=4.16.1
   - nextflow=24.04.4
   - nf-core=2.14.1
-  - multiqc=1.24.1
   - singularity=3.8.6
