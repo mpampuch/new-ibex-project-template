@@ -249,4 +249,31 @@ And in the `Files` pane, click on  `More` (the gear icon) -> `Go To Working Dire
 
 Now you're finally ready to begin working in RStudio Server. You can now access all the data you have in your project folder on IBEX and any files you create will automatically appear in this folder.
 
-NOTE: If you are creating a new R project from RStudio Server, make sure you create the project as a subdirectory of /mnt
+> [!NOTE] 
+> If you are creating a new R project from RStudio Server, make sure you create the project as a subdirectory of `/mnt`
+
+## Backing up your IBEX data
+
+Your work folder on IBEX (`/ibex/user/YOUR_KAUST_USERNAME`) has a maximum storage size of 1.5TB. You'll often find yourself cleaning it up to make space for your new projects. Instead of just removing everything, it's a good idea to keep back-ups of your old projects in case you want to refer to them quickly. You can move them to a back up drive (such as the `datawaha/ssbdrive`, which has ~20TB of free space). 
+
+Moving large amounts of data is best performed with the `rsync` command. 
+`rsync` is often considered superior to `scp` due to its efficiency, flexibility, and advanced features for file synchronization. Unlike `scp`, which transfers entire files every time and lacks resuming capabilities, `rsync` only transfers changed parts of files, reducing bandwidth usage and time, and can resume interrupted transfers. `rsync` also supports data compression, preserves file attributes, and provides advanced options for excluding files and synchronizing directories, making it ideal for frequent updates and backup tasks. While `scp` is straightforward and secure, `rsync`’s ability to handle large transfers more efficiently and its versatile synchronization options generally make it a better choice for most scenarios.
+
+The problem with just natively using `rsync` is that it can be very slow. This is why it's often a good idea to run mulitple `rsync` commands at once, one for each sub-directory of your project. 
+
+Below are examples of `rsync` commands I have used to move large amounts of data around.
+
+To move large amounts of data from my personal laptop to the ssbdrive:
+
+```bash
+find /Users/markpampuch/to_learn_share -mindepth 1 -maxdepth 1 -type d | while read -r subdir; do subdir_name=$(basename "$subdir"); rsync -avh --partial --progress --append "/Users/markpampuch/to_learn_share/${subdir_name}/" "/Volumes/ssbdrive/0 Staff and Coworkers/3 PhD Students/Pampuch-Mark/untitled-folder/${subdir_name}/" & [ $(jobs | wc -l) -ge 5 ] && wait -n; done; wait
+```
+
+To move large amounts of data from the IBEX work directory to the ssbdrive:
+
+```bash
+ssh pampum@ilogin.ibex.kaust.edu.sa 'find /ibex/user/pampum/to-move-to-ssb -mindepth 1 -maxdepth 1 -type d' | while read -r subdir; do subdir_name=$(basename "$subdir"); rsync -avhz --partial --progress --append "pampum@ilogin.ibex.kaust.edu.sa:/ibex/user/pampum/to-move-to-ssb/${subdir_name}/" "/Volumes/ssbdrive/0 Staff and Coworkers/3 PhD Students/Pampuch-Mark/untitled-folder/ibex-data/${subdir_name}/" & [ $(jobs | wc -l) -ge 5 ] && wait -n; done; wait
+```
+
+> [!NOTE]
+> You can `ssh` into the KAUST IBEX to get some sort of `stdout`, which you can then pipe into the rest of your command.
