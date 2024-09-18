@@ -293,7 +293,19 @@ tar -cvf move-data-here-and-tar-this-folder.tar move-data-here-and-tar-this-fold
 
 5. ...uncompress...
 
-6. ...unpack `.tar`...
+6. ...verify correct data transfer with `md5sum`...
+
+```bash
+# On source file
+pv move-data-here-and-tar-this-folder.tar | md5sum
+
+# On destination file
+pv move-data-here-and-tar-this-folder.tar | md5sum
+
+# Compare the outputs and make sure they match
+```
+
+7. ...unpack `.tar`...
 
 
 ### OLD APPROACH
