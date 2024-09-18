@@ -262,6 +262,42 @@ Your work folder on IBEX (`/ibex/user/YOUR_KAUST_USERNAME`) has a maximum storag
 Moving large amounts of data is best performed with the `rsync` command. 
 `rsync` is often considered superior to `scp` due to its efficiency, flexibility, and advanced features for file synchronization. Unlike `scp`, which transfers entire files every time and lacks resuming capabilities, `rsync` only transfers changed parts of files, reducing bandwidth usage and time, and can resume interrupted transfers. `rsync` also supports data compression, preserves file attributes, and provides advanced options for excluding files and synchronizing directories, making it ideal for frequent updates and backup tasks. While `scp` is straightforward and secure, `rsync`’s ability to handle large transfers more efficiently and its versatile synchronization options generally make it a better choice for most scenarios.
 
+### NEW APPROACH
+
+`rsync` suffers when trying to move a lot of small files. It's better to just move one really big file.
+
+Therefore, it may be a good idea to combine all your data into one big `tar` folder and then compress it using `gzip`. Transferring a single big file is much easier and then you can uncompress it at your destination. 
+
+Here is the approach I would use to backup a really big folder to the `ssb-drive`
+
+1. Create a new folder for moving the files
+
+```
+work-directory
+└── to-move-to-ssb
+    └── move-data-here-and-tar-this-folder
+```
+
+2. Create one file that contains all your files with `tar`
+
+```bash
+tar -cvf move-data-here-and-tar-this-folder.tar move-data-here-and-tar-this-folder/
+```
+
+> [!WARNING]
+> This by default will copy your file folder. If your original folder is 500Gb, this will create **ANOTHER** 500Gb file (the resulting `.tar` file) 
+
+3. ...gzip...
+
+4. ...transfer...
+
+5. ...uncompress...
+
+6. ...unpack `.tar`...
+
+
+### OLD APPROACH
+
 The problem with just natively using `rsync` is that it can be very slow. This is why it's often a good idea to run mulitple `rsync` commands at once, one for each sub-directory of your project. 
 
 Below are examples of `rsync` commands I have used to move large amounts of data around.
