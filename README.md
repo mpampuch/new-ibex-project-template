@@ -285,7 +285,7 @@ tar -cvf move-data-here-and-tar-this-folder.tar move-data-here-and-tar-this-fold
 ```
 
 > [!WARNING]
-> This by default will copy your file folder. If your original folder is 500Gb, this will create **ANOTHER** 500Gb file (the resulting `.tar` file) 
+> This by default will copy your file folder. If your original folder is 500Gb, this will create **ANOTHER** 500Gb file (the resulting `.tar` file). Make sure you have space to do this OR figure out a way to do this in-place.
 
 3. ...gzip...
 
