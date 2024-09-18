@@ -189,6 +189,9 @@ cp -rv ./env/share/code-server/extensions/* ~/ibex-code-server-extensions-backup
 
 Now all your backups should be up to date. From here you can pull them off the IBEX or push them to a GitHub repository if you want extra security.
 
+> [!TIP]
+> In my opinion, the Bearded Theme Monokai Reversed (from the Bearded Theme v9.3.0 extension) is the best color theme to use code-server with.
+
 ## Activating RStudio Server
 
 Eventually you will need to use R to analyze some data. The only viable way to use R is within RStudio. In order to get access to RStudio but have it run on the IBEX use the following instructions.
