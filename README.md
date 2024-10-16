@@ -328,3 +328,10 @@ ssh pampum@ilogin.ibex.kaust.edu.sa 'find /ibex/user/pampum/to-move-to-ssb -mind
 
 > [!NOTE]
 > You can `ssh` into the KAUST IBEX to get some sort of `stdout`, which you can then pipe into the rest of your command.
+
+
+### ACTUAL WAY
+
+```bash
+rsync -avP /ibex/user/pampum/to-move-to-ssb/make-this-a-tar-folder.tar.gz dm.kaust.edu.sa:/datawaha/ssbdrive/97_ibex-backups/ibex-transfer-attempt
+```
