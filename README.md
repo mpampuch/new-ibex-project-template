@@ -333,7 +333,11 @@ ssh pampum@ilogin.ibex.kaust.edu.sa 'find /ibex/user/pampum/to-move-to-ssb -mind
 ### ACTUAL WAY
 
 ```bash
-rsync -avP IBEX_MD5_FILE TAR.GZ_FILE dm.kaust.edu.sa:/datawaha/ssbdrive/97_ibex-backups/ibex-data/BACKUP_FOLDER_NAME
+rsync -avP \
+  IBEX_MD5_FILE \
+  TAR.GZ_FILE \
+  dm.kaust.edu.sa:/datawaha/ssbdrive/97_ibex-backups/ibex-data/BACKUP_FOLDER_NAME
+
 ```
 
 Example:
