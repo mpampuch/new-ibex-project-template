@@ -6,8 +6,8 @@
 #SBATCH --ntasks=1
 #SBATCH --mem=32G
 #SBATCH --partition=batch
-#SBATCH --job-name=YOUR_JOB_NAME
 #SBATCH --mail-type=ALL
+#SBATCH --job-name=YOUR_JOB_NAME
 
 # Activate your conda environment for your job
 conda activate "$(pwd)/env"
