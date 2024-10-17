@@ -333,5 +333,11 @@ ssh pampum@ilogin.ibex.kaust.edu.sa 'find /ibex/user/pampum/to-move-to-ssb -mind
 ### ACTUAL WAY
 
 ```bash
-rsync -avP /ibex/user/pampum/to-move-to-ssb/make-this-a-tar-folder.tar.gz dm.kaust.edu.sa:/datawaha/ssbdrive/97_ibex-backups/ibex-transfer-attempt
+rsync -avP IBEX_MD5_FILE TAR.GZ_FILE dm.kaust.edu.sa:/datawaha/ssbdrive/97_ibex-backups/ibex-data/BACKUP_FOLDER_NAME
+```
+
+Example:
+
+```bash
+rsync -avP 2024-10-16_login509-02-l_results_2024-10-16_w-mamba_galderia-suphuraria_strain-SAG-21__DOT__92_isolate-SAG-21__DOT__92_rnaseq-bioproject-accessions.tar.gz.md5  ./results_2024-10-16_w-mamba_galderia-suphuraria_strain-SAG-21__DOT__92_isolate-SAG-21__DOT__92_rnaseq-bioproject-accessions.tar.gz dm.kaust.edu.sa:/datawaha/ssbdrive/97_ibex-backups/ibex-data/2024-10-16_collect-g-sulphuria-rnaseq-reads
 ```
