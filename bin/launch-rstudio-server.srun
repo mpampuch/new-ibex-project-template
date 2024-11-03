@@ -71,7 +71,12 @@ export SINGULARITYENV_PASSWORD
 PORT=$(python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
 readonly PORT
 
+# collect the date and time the instance started running
+DATE_TIME=$(date)
+
 cat 1>&2 <<END
+(Instance started running: ${DATE_TIME})
+
 1. SSH tunnel from your workstation using the following command:
 
       ssh -L ${PORT}:${HOSTNAME}:${PORT} ${SINGULARITYENV_USER}@ilogin.ibex.kaust.edu.sa

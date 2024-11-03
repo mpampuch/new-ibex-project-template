@@ -15,7 +15,12 @@ conda activate "$ENV_PREFIX"
 COMPUTE_NODE=$(hostname -s) 
 CODE_SERVER_PORT=$SLURM_STEP_RESV_PORTS
 
+# collect the date and time the instance started running
+DATE_TIME=$(date)
+
 echo "
+(Instance started running: ${DATE_TIME})
+
 To connect to the compute node ${COMPUTE_NODE} on Ibex running your Code Server, 
 you need to create an ssh tunnel from your local machine to login node on Ibex 
 using the following command.
