@@ -21,7 +21,7 @@ LAUNCH_RSTUDIO_SERVER_PATH=$(find "${SUBMIT_DIR}" -type f -name "launch-rstudio-
 if [ -n "${LAUNCH_RSTUDIO_SERVER_PATH}" ]; then
     # Extract the directory containing launch-rstudio-server.sbatch
     SCRIPT_DIR=$(dirname "${LAUNCH_RSTUDIO_SERVER_PATH}")
-    echo "${SCRIPT_DIR}"
+    echo "Running: ${SCRIPT_DIR}"
 else
     echo "Error: launch-rstudio-server.sbatch not found."
 fi

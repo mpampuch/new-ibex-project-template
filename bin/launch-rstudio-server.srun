@@ -48,7 +48,7 @@ END
 
 chmod +x "${workdir}"/rsession.sh
 
-#TEST  modify the script so that the home directory is not mounted inside the RStudio Server container, but rather the directory from where the script is called, 
+# TEST: modify the script so that the home directory is not mounted inside the RStudio Server container, but rather the directory from where the script is called, 
 # Set the bind path to the directory from where the script is called
 bind_path=$(realpath .)
 export SINGULARITY_BIND="${bind_path}:/mnt,${workdir}/run:/run,${workdir}/tmp:/tmp,${workdir}/database.conf:/etc/rstudio/database.conf,${workdir}/rsession.sh:/etc/rstudio/rsession.sh,${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server"
@@ -75,6 +75,7 @@ readonly PORT
 DATE_TIME=$(date)
 
 cat 1>&2 <<END
+
 (Instance started running: ${DATE_TIME})
 
 1. SSH tunnel from your workstation using the following command:
