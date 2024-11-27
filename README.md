@@ -78,7 +78,7 @@ conda activate "$(pwd)/env"
 sbatch bin/launch-code-server.sbatch
 
 # Monitor your SLURM process until your job starts running
-watch -d -n 10 squeue -u YOUR_IBEX_USERNAME
+watch -d -n 10 squeue -u $USER 
 # Once your job is running, continue with the following steps
 # Note: You can use Ctrl + C (on Mac) to get out of this view
 
@@ -120,7 +120,7 @@ You can monitor your job using `squeue`
 
 ```bash
 # Monitor your SLURM process to see when your job starts running
-watch -d -n 10 squeue -u YOUR_IBEX_USERNAME
+watch -d -n 10 squeue -u $USER 
 # Note: You can use Ctrl + C (on Mac) to get out of this view
 ```
 
@@ -206,7 +206,7 @@ conda activate "$(pwd)/env"
 sbatch bin/launch-rstudio-server.sbatch
 
 # Monitor your SLURM process until your job starts running
-watch -d -n 10 squeue -u YOUR_IBEX_USERNAME
+watch -d -n 10 squeue -u $USER 
 # Once your job is running, continue with the following steps
 # Note: You can use Ctrl + C (on Mac) to get out of this view
 
