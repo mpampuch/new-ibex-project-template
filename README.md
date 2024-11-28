@@ -33,7 +33,9 @@ If you don't have a conda environment called mamba, run the following code first
 ```bash
 conda create --name mamba
 conda activate mamba
-conda install -c conda-forge mamba
+conda env create -f .mamba_environment.yml
+# conda install -c conda-forge mamba=1.5.3  ## If the above doesn't work, try this
+# conda install -c conda-forge mamba  ## If the above still doesn't work, try this
 conda deactivate mamba
 ```
 
