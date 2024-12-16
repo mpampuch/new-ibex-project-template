@@ -75,9 +75,6 @@ while [ "$attempt" -le $MAX_RETRIES ]; do
   fi
 done
 
-# echo "Transferring '$PACKAGE_DIR' to '$DEST_PATH' using SSH key '$SSH_KEY_PATH'..."
-# rsync -avP -e "ssh -i $SSH_KEY_PATH" "$PACKAGE_DIR" "$DEST_PATH"
-
 # SSH into the remote machine and verify the MD5 checksum of the transferred file
 REMOTE_TAR_FILE="${DEST_PATH#dm.kaust.edu.sa:}/${PACKAGE_DIR}/$(basename "$TAR_FILE")"
 attempt=1
