@@ -259,9 +259,6 @@ Now you're finally ready to begin working in RStudio Server. You can now access 
 
 ## Backing up your IBEX data
 
-> [!CAUTION] 
-> I need to update the notes in this section it is unfinished
-
 Your work folder on IBEX (`/ibex/user/YOUR_KAUST_USERNAME`) has a maximum storage size of 1.5TB. You'll often find yourself cleaning it up to make space for your new projects. Instead of just removing everything, it's a good idea to keep back-ups of your old projects in case you want to refer to them quickly. You can move them to a back up drive (such as the `datawaha/ssbdrive`, which has ~20TB of free space). 
 
 Moving large amounts of data is best performed with the `rsync` command. 
