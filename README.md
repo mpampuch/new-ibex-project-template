@@ -267,86 +267,10 @@ Your work folder on IBEX (`/ibex/user/YOUR_KAUST_USERNAME`) has a maximum storag
 Moving large amounts of data is best performed with the `rsync` command. 
 `rsync` is often considered superior to `scp` due to its efficiency, flexibility, and advanced features for file synchronization. Unlike `scp`, which transfers entire files every time and lacks resuming capabilities, `rsync` only transfers changed parts of files, reducing bandwidth usage and time, and can resume interrupted transfers. `rsync` also supports data compression, preserves file attributes, and provides advanced options for excluding files and synchronizing directories, making it ideal for frequent updates and backup tasks. While `scp` is straightforward and secure, `rsync`’s ability to handle large transfers more efficiently and its versatile synchronization options generally make it a better choice for most scenarios.
 
-### NEW APPROACH
+I created a script to help do this. The code can be found inside this repository at `utils/copy-ibex-folder-to-datawaha.sh`.
 
-`rsync` suffers when trying to move a lot of small files. It's better to just move one really big file.
-
-Therefore, it may be a good idea to combine all your data into one big `tar` folder and then compress it using `gzip`. Transferring a single big file is much easier and then you can uncompress it at your destination. 
-
-Here is the approach I would use to backup a really big folder to the `ssb-drive`
-
-1. Create a new folder for moving the files
-
-```
-work-directory
-└── to-move-to-ssb
-    └── move-data-here-and-tar-this-folder
-```
-
-2. Create one file that contains all your files with `tar`
+I've also configured my ibex environment to take the alias `ibex2dw` for this purpose. An example of how I backup my data is as follows:
 
 ```bash
-tar -cvf move-data-here-and-tar-this-folder.tar move-data-here-and-tar-this-folder/
-```
-
-> [!WARNING]
-> This by default will copy your file folder. If your original folder is 500Gb, this will create **ANOTHER** 500Gb file (the resulting `.tar` file). Make sure you have space to do this OR figure out a way to do this in-place.
-
-3. ...gzip...
-
-4. ...transfer...
-
-5. ...uncompress... (idk if this should come before or after verifying)
-
-6. ...verify correct data transfer with `md5sum`...
-
-```bash
-# On source file
-pv move-data-here-and-tar-this-folder.tar | md5sum
-
-# On destination file
-pv move-data-here-and-tar-this-folder.tar | md5sum
-
-# Compare the outputs and make sure they match
-```
-
-7. ...unpack `.tar`...
-
-
-### OLD APPROACH
-
-The problem with just natively using `rsync` is that it can be very slow. This is why it's often a good idea to run mulitple `rsync` commands at once, one for each sub-directory of your project. 
-
-Below are examples of `rsync` commands I have used to move large amounts of data around.
-
-To move large amounts of data from my personal laptop to the ssbdrive:
-
-```bash
-find /Users/markpampuch/to_learn_share -mindepth 1 -maxdepth 1 -type d | while read -r subdir; do subdir_name=$(basename "$subdir"); rsync -avh --partial --progress --append "/Users/markpampuch/to_learn_share/${subdir_name}/" "/Volumes/ssbdrive/0 Staff and Coworkers/3 PhD Students/Pampuch-Mark/untitled-folder/${subdir_name}/" & [ $(jobs | wc -l) -ge 5 ] && wait -n; done; wait
-```
-
-To move large amounts of data from the IBEX work directory to the ssbdrive:
-
-```bash
-ssh pampum@ilogin.ibex.kaust.edu.sa 'find /ibex/user/pampum/to-move-to-ssb -mindepth 1 -maxdepth 1 -type d' | while read -r subdir; do subdir_name=$(basename "$subdir"); rsync -avhz --partial --progress --append "pampum@ilogin.ibex.kaust.edu.sa:/ibex/user/pampum/to-move-to-ssb/${subdir_name}/" "/Volumes/ssbdrive/0 Staff and Coworkers/3 PhD Students/Pampuch-Mark/untitled-folder/ibex-data/${subdir_name}/" & [ $(jobs | wc -l) -ge 5 ] && wait -n; done; wait
-```
-
-> [!NOTE]
-> You can `ssh` into the KAUST IBEX to get some sort of `stdout`, which you can then pipe into the rest of your command.
-
-
-### ACTUAL WAY
-
-```bash
-rsync -avP \
-  IBEX_MD5_FILE \
-  TAR.GZ_FILE \
-  dm.kaust.edu.sa:/datawaha/ssbdrive/97_ibex-backups/ibex-data/BACKUP_FOLDER_NAME
-
-```
-
-Example:
-
-```bash
-rsync -avP 2024-10-16_login509-02-l_results_2024-10-16_w-mamba_galderia-suphuraria_strain-SAG-21__DOT__92_isolate-SAG-21__DOT__92_rnaseq-bioproject-accessions.tar.gz.md5  ./results_2024-10-16_w-mamba_galderia-suphuraria_strain-SAG-21__DOT__92_isolate-SAG-21__DOT__92_rnaseq-bioproject-accessions.tar.gz dm.kaust.edu.sa:/datawaha/ssbdrive/97_ibex-backups/ibex-data/2024-10-16_collect-g-sulphuria-rnaseq-reads
+ibex2dw 20241118_P41U1_KSAlib-rapid-barcode
 ```
