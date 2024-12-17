@@ -31,8 +31,7 @@ HOSTNAME=$(hostname)
 # Tar and gzip the folder
 TAR_FILE="${FOLDER_TO_COMPRESS}.tar.gz"
 echo "Compressing folder '$FOLDER_TO_COMPRESS' to '$TAR_FILE'..."
-tar -czf "$TAR_FILE" -C "$(dirname "$FOLDER_TO_COMPRESS")" "$(basename "$FOLDER_TO_COMPRESS")"
-
+tar -czf - -C "$(dirname "$FOLDER_TO_COMPRESS")" "$(basename "$FOLDER_TO_COMPRESS")" | pv -s $(du -sb "$FOLDER_TO_COMPRESS" | awk '{print $1}') > "$TAR_FILE"
 # MD5SUM check the compressed tarball and create checksum file
 echo "Calculating MD5 checksum for '$TAR_FILE'..."
 MD5SUM_FILE="${TAR_FILE}.${TIMESTAMP}.${HOSTNAME}.md5"
