@@ -18,6 +18,15 @@ fi
 # Get the folder name from the shell arguments
 FOLDER_TO_COMPRESS="$1"
 
+# Remove trailing slash if present
+FOLDER_TO_COMPRESS="${FOLDER_TO_COMPRESS%/}"
+
+# Validate that the provided folder exists
+if [ ! -d "$FOLDER_TO_COMPRESS" ]; then
+  echo "Error: Folder '$FOLDER_TO_COMPRESS' does not exist!"
+  exit 1
+fi
+
 # Validate that the provided folder exists
 if [ ! -d "$FOLDER_TO_COMPRESS" ]; then
   echo "Error: Folder '$FOLDER_TO_COMPRESS' does not exist!"
