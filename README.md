@@ -1,6 +1,17 @@
 # new-ibex-project-template
 This repository contiains all the necessary files and instructions to initialize a new directory on the KAUST IBEX for a data analysis project.
 
+## Quick Setup
+
+If you want to quickly set up a new project directory on the IBEX with all the default configurations I set up here, you can just run this inside your new project directory:
+
+```bash
+newproj
+```
+
+I created this alias for myself and it simply sources [this script](https://github.com/mpampuch/dot_files/blob/main/kaust-ibex/CUSTOM_SCRIPTS/newproj.sh) for me, which is just a consolidations of the rest of the initialization instructions in this notebook.
+
+
 ## Cloning this directory into IBEX
 
 On IBEX, all work should be performed in your work folder. This is found at `/ibex/user/YOUR_KAUST_USERNAME`
