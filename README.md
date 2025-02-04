@@ -17,7 +17,60 @@ git clone --depth 1 https://github.com/mpampuch/new-ibex-project-template temp_f
 ```
 Now all the files and programs you need to complete your specific data analysis project will be stored in the folder you created. Copy or move all the data you need into this folder to make sure you stay organized.
 
-## Activating a conda environment
+## Activating your virual environment
+
+## Using IBEX Modules
+
+Modules on HPCs like the IBEX are a way to manage software environments and dependencies on supercomputers or clusters. They allow users to easily load, unload, and switch between different versions of software, libraries, or tools without conflicting with each other. They help manage environment variables (e.g., `PATH`, `LD_LIBRARY_PATH`) to ensure the correct software and libraries are available for your jobs. They allow you to dynamically modify your environment without permanently changing it. They also help with dependency handling because modules ensure that the correct dependencies are loaded automatically for each software packages. They are also isolated, so they prevent conflicts between different software versions or libraries that might otherwise interfere with each other.
+
+To view available modules on the IBEX, you can use:
+
+```bash
+module avail
+```
+
+To load a specific module, run:
+
+```bash
+module load <module_name>
+```
+
+Unloading modules is done the same way except with `unload` instead of `load`.
+
+To list all the loaded modules in your environment you can use:
+
+```bash
+module list
+```
+
+On IBEX, the two key softwares that I use for most of my projects are `nextflow` and `singularity` (and `nf-core` but that comes bundled with `nextflow` now). I have created a file called `env.sh` that automatically loads these modules so that you can quickly prepare you software environment for each new project. Simply run:
+
+```bash
+source env.sh
+```
+
+If you would like to use more IBEX modules in your enviroment, simply modify the `env.sh` file with your desired IBEX module and re-run the above command.
+
+### Modulefiles
+
+Behind the scenes, modules are defined by modulefiles, which are scripts that set environment variables and load dependencies. These files are typically located in directories like `/usr/share/modules/modulefiles` or `/opt/apps/modulefiles`.
+
+Example of a simple modulefile:
+
+```bash
+#%Module1.0
+set version 3.8
+set prefix /opt/apps/python/$version
+prepend-path PATH $prefix/bin
+prepend-path LD_LIBRARY_PATH $prefix/lib
+```
+
+If you want to mess around with the modulefules, you might need to reach out to the IBEX administrators. For the most part you won't ever have to do this.
+
+## Using Conda
+
+> [!NOTE] 
+> Building your own conda environments is not recommended by the KAUST Supercomputing Core Labs team, especially for softwares that need permissions properly configured (like Singularity and other container technologies). It's if the software is available through IBEX modules, then it's recommended to just use those because are already prebuilt and optimized for the IBEX. However, building your own environment can be really useful especially when using softwares that aren't pre-available on the IBEX. If you decide that using a enviroment with IBEX modules will be insufficient for your project, follow these instructions instead.
 
 Conda is used for managing your programs and software packages. You need to make sure you are able to activate the enviroment in the `env` folder found in your new project for the following steps to work. The `env` folder is created using the the `environment.yml` file. Modify this file to include any softwares or packages that you will need to perform your data analysis. To find out how to correctly install the tool that you need, search for it on https://anaconda.org/ and copy the name of the tool exactly as it appears on the website into the `dependencies:` section of the `environment.yml` file. Once you have all the tools you need to conduct your analysis, run the following commands.
 
@@ -43,7 +96,7 @@ If that still doesn't work, make sure you have conda installed. Try to troublesh
 
 **Side note:** This is the best video on what conda is and how and why to use it. It's 3h long and very dry but it's extremely useful in order to know how to effectively stay organized before analyzing large data https://www.youtube.com/watch?v=GW9_AXz-G5s
 
-### A note on installing dependencies
+#### A note on installing dependencies
 
 Most of the dependencies you will need should be able to be found on https://anaconda.org/. However, some Python packages may not be able to be found in the anaconda repository and may need to be installed using `pip` ([see here for more info](https://pypi.org/project/pip/)). To install packages using conda as well as pip, you need to create a `requirements.txt` file in addition to your `environment.yml` file. 
 1. Inside `requirements.txt` add all your Python specific packages (and optionally with versions that you want to install using pip). See [here](https://learnpython.com/blog/python-requirements-file/) for further instructions.
