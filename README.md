@@ -137,14 +137,14 @@ To activate run
 ```bash
 # Make sure you are in your project folder before starting
 
-# Activate your conda environment
-conda activate "$(pwd)/env"
+# Activate your environment
+source env.sh
 
 # Run the script to launch code-server
 sbatch bin/launch-code-server.sbatch
 
 # Monitor your SLURM process until your job starts running
-watch -d -n 10 squeue -u $USER 
+watch -d -n 1 squeue -u $USER -o \'%.18i %.9P %.119j %.8u %.2t %.10M %.6D %R %Z\' 
 # Once your job is running, continue with the following steps
 # Note: You can use Ctrl + C (on Mac) to get out of this view
 
@@ -186,7 +186,7 @@ You can monitor your job using `squeue`
 
 ```bash
 # Monitor your SLURM process to see when your job starts running
-watch -d -n 10 squeue -u $USER 
+watch -d -n 1 squeue -u $USER -o \'%.18i %.9P %.119j %.8u %.2t %.10M %.6D %R %Z\' 
 # Note: You can use Ctrl + C (on Mac) to get out of this view
 ```
 
@@ -265,14 +265,14 @@ Eventually you will need to use R to analyze some data. The only viable way to u
 ```bash
 # Make sure you are in your project folder before starting
 
-# Activate your conda environment
-conda activate "$(pwd)/env"
+# Activate your environment
+source env.sh
 
 # Run the script to launch RStudio Server
 sbatch bin/launch-rstudio-server.sbatch
 
 # Monitor your SLURM process until your job starts running
-watch -d -n 10 squeue -u $USER 
+watch -d -n 1 squeue -u $USER -o \'%.18i %.9P %.119j %.8u %.2t %.10M %.6D %R %Z\' 
 # Once your job is running, continue with the following steps
 # Note: You can use Ctrl + C (on Mac) to get out of this view
 
