@@ -11,8 +11,12 @@
 #SBATCH --mail-type=ALL
 #SBATCH --job-name=YOUR_JOB_NAME
 
-# Activate your  environment for your job
+# Activate your environment for your job
 source env.sh 
+
+# Activate a conda enviroment (if necessary)
+# source "$(conda info --base)/etc/profile.d/conda.sh" # Initialize Conda for use in this script
+# conda activate "$(pwd)/env" # Activate the conda environment
 
 # Put in your file paths
 # E.g.
