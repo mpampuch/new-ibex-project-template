@@ -4,7 +4,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  # - code-server=4.16.1
   - nextflow=24.04.4
-  - nf-core=2.14.1
   - singularity=3.8.6
+  # - nf-core=2.14.1
+  # - code-server=4.16.1
