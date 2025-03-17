@@ -16,7 +16,7 @@ source env.sh
 
 # Activate a conda enviroment (if necessary)
 # SCRIPT_DIR="$(dirname "$(realpath "$0")")" # Get the directory where the script is located
-# ENV_DIR="$SCRIPT_DIR/env_get-q-scores-of-reads" # Use the script directory to construct the full path to the environment directory
+# ENV_DIR="$SCRIPT_DIR/env" # Use the script directory to construct the full path to the environment directory
 # source "$(conda info --base)/etc/profile.d/conda.sh" # Initialize Conda for use in this script
 # conda activate $"$ENV_DIR" # Activate the conda environment
 
