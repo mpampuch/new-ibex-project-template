@@ -89,7 +89,7 @@ Conda is used for managing your programs and software packages. You need to make
 # Make sure you are in your new project folder before starting
 conda activate mamba
 mamba env create --prefix ./env --file environment.yml --force
-conda activate "$(pwd)/env"
+conda activate $(realpath env/)
 ```
 
 If you don't have a conda environment called mamba, run the following code first before retrying the above
