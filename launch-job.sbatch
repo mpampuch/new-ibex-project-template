@@ -16,7 +16,7 @@ source env.sh
 
 # Activate a conda enviroment (if necessary)
 # source "$(conda info --base)/etc/profile.d/conda.sh" # Initialize Conda for use in this script
-# conda activate "$(pwd)/env" # Activate the conda environment
+# conda activate $(realpath env/) # Activate the conda environment
 
 # Put in your file paths
 # E.g.
