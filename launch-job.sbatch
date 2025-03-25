@@ -23,7 +23,7 @@ source env.sh
 # Put in your file paths
 # E.g.
 # INPUT_FILE="ids.csv"
-# NXF_OUTPUT_DIR="outputs/$(date -Iseconds | sed 's/-//g; s/://g; s/T/_/; s/+.*//')"
+# NXF_OUTPUT_DIR="OUTPUTS/$(date -Iseconds | sed 's/-//g; s/://g; s/T/_/; s/+.*//')"
 # NXF_LOG_FILE="$NXF_OUTPUT_DIR/nextflow.log"
 
 # Run your job script here
