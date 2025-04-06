@@ -18,6 +18,8 @@ source env.sh
 # SCRIPT_DIR="$(dirname "$(realpath "$0")")" # Get the directory where the script is located
 # ENV_DIR="$SCRIPT_DIR/env" # Use the script directory to construct the full path to the environment directory
 # source "$(conda info --base)/etc/profile.d/conda.sh" # Initialize Conda for use in this script
+# source "/ibex/user/pampum/mambaforge/etc/profile.d/conda.sh"
+# conda activate "$(pwd)/env"
 # conda activate $"$ENV_DIR" # Activate the conda environment
 
 # Put in your file paths
