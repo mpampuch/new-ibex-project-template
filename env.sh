@@ -19,3 +19,6 @@ echo "Created Nextflow Singularity cache directory at $NXF_SINGULARITY_CACHEDIR"
 
 export NXF_WORK=/ibex/scratch/projects/c2303/work
 echo "Nextflow WORK directory will be outputted at $NXF_WORK"
+
+# Make DATA and OUTPUTS folder
+mkdir -p DATA OUTPUTS
