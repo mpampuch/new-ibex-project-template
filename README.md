@@ -335,3 +335,22 @@ I've also configured my ibex environment to take the alias `ibex2dw` for this pu
 ```bash
 ibex2dw 20241118_P41U1_KSAlib-rapid-barcode
 ```
+
+## Getting data off the datawaha drive and into the IBEX
+
+[This](https://anperc.kaust.edu.sa/resources/laboratory_resources/datawaha-data-storage) is a good resource for doing this. But just breifly
+
+```bash
+# Create a new tmux session to ensure data stays getting transferred, even if you lose network connection to the IBEX session
+tmux new-session -s dw2ibex
+# Transfer the data
+rsync -av "dm.kaust.edu.sa:/datawaha/ssbdrive/<FILE-PATH>" "<DEST-PATH>"
+```
+
+A good practice is to also create and transfer `md5` sums with 
+
+```bash
+pv FILENAME.tar.gz | md5sum > FILENAME.tar.gz.md5
+```
+
+to ensure that the data transferred is exactly the same on both machines (the `ibex2dw` script I created does this automatically)
