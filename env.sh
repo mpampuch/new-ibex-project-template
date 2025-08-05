@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Load required modules
-module load nextflow/24.10.2
+module load nextflow/25.04.2
 module load singularity/3.9.7
 
 # Configure your environment variables
