@@ -6,8 +6,8 @@
 #SBATCH --ntasks=1
 #SBATCH --mem=32G
 #SBATCH --partition=batch
-#SBATCH --output=.slurm_%j.out
-#SBATCH --error=.slurm_%j.err
+#SBATCH --output=SLURM_LOGS/.slurm_%j.out
+#SBATCH --error=SLURM_LOGS/.slurm_%j.err
 #SBATCH --mail-type=ALL
 #SBATCH --job-name=YOUR_JOB_NAME
 
