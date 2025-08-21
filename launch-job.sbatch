@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
-# Set your job walltime (D-HH:MM:SS)
-#SBATCH --time=48:00:00
-#SBATCH --nodes=1
-#SBATCH --cpus-per-task=1
-#SBATCH --ntasks=1
-#SBATCH --mem=32G
-#SBATCH --partition=batch
-#SBATCH --output=SLURM_LOGS/.slurm_%j.out
-#SBATCH --error=SLURM_LOGS/.slurm_%j.err
-#SBATCH --mail-type=ALL
-#SBATCH --job-name=YOUR_JOB_NAME
+#SBATCH --time=48:00:00                     # Set your job walltime (D-HH:MM:SS)
+#SBATCH --nodes=1                           # Set how many compute nodes / machines to request
+#SBATCH --cpus-per-task=1                   # Set how many CPU's / threads you need
+#SBATCH --ntasks=1                          # Set how many tasks / processes you need (generally 1 for serial tasks)
+#SBATCH --mem=32G                           # Set how much memory should be allocated per node
+#SBATCH --partition=batch                   # Set which partition / queue your job will run in.
+#SBATCH --output=SLURM_LOGS/.slurm_%j.out   # Set where SLURM stdout will go
+#SBATCH --error=SLURM_LOGS/.slurm_%j.err    # Set where SLURM stderr will go
+#SBATCH --mail-type=ALL                     # Set emailing rules for this job (options: BEGIN, END, FAIL, REQUEUE, ALL, NONE)
+#SBATCH --job-name=YOUR_JOB_NAME            # Set your job name
 
 # Load modules
 module load nextflow/25.04.2
