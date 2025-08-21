@@ -11,14 +11,19 @@ echo "Java VM Heap memory allocated to a range of $(echo $NXF_OPTS | grep -oP '(
 export TMOUT=172800
 echo "tmux timeout ENV variable (TMOUT) changed to $TMOUT seconds"
 
-export SINGULARITY_CACHEDIR=$(pwd)/CACHE 
-export NXF_SINGULARITY_CACHEDIR=$(pwd)/NFCACHE 
-mkdir -p $SINGULARITY_CACHEDIR $NXF_SINGULARITY_CACHEDIR 
-echo "Created Singularity cache directory at $SINGULARITY_CACHEDIR" 
+export NXF_SINGULARITY_CACHEDIR=/ibex/scratch/projects/c2303/NXF_SINGULARITY_CACHEDIR
+export NXF_APPTAINER_CACHEDIR=/ibex/scratch/projects/c2303/NXF_APPTAINER_CACHEDIR
+mkdir -p $NXF_SINGULARITY_CACHEDIR $NXF_APPTAINER_CACHEDIR 
 echo "Created Nextflow Singularity cache directory at $NXF_SINGULARITY_CACHEDIR" 
+echo "Created Nextflow Apptainer cache directory at $NXF_APPTAINER_CACHEDIR" 
+
 
 export NXF_WORK=/ibex/scratch/projects/c2303/work
+mkdir -p $NXF_WORK 
 echo "Nextflow WORK directory will be outputted at $NXF_WORK"
 
 # Make DATA and OUTPUTS folder
 mkdir -p DATA OUTPUTS
+
+# Reset README.md
+echo -e "# README.md\n" > README.md
