@@ -39,7 +39,7 @@ NXF_LOG_FILE="$NXF_OUTPUT_DIR/nextflow.log"
 mkdir -p "$NXF_OUTPUT_DIR"
 cp "$INPUT_FILE" "$NXF_OUTPUT_DIR"
 cp "$CONFIG_FILE" "$NXF_OUTPUT_DIR"
-cp "$0" "$NXF_OUTPUT_DIR/launch-job.sbatch" # Copy the script to the output directory
+cp "$0" "$NXF_OUTPUT_DIR/slurm_script.sbatch" # Copy the script to the output directory
 
 # Run your job script here
 srun YOUR_JOB_SCRIPT
