@@ -41,7 +41,7 @@ cp "$CONFIG_FILE" "$NXF_OUTPUT_DIR"
 cp "$0" "$NXF_OUTPUT_DIR/slurm_script.sbatch" # Copy the script to the output directory
 
 # Run your job script here
-srun YOUR_JOB_SCRIPT
+nextflow -log "$NXF_LOG_FILE" run YOUR_JOB_SCRIPT
 
 # Examples
 # nextflow -log "$NXF_LOG_FILE" run nf-core/fetchngs  -r 1.12.0 -c "$CONFIG_FILE" -with-report -profile singularity --input "$INPUT_FILE" --download_method sratools --outdir "$NXF_OUTPUT_DIR";
