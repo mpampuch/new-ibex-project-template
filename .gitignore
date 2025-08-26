@@ -1,29 +1,303 @@
-# Ignore the /env directory
-env/
+# =============================================================================
+# LARGE DATA FILES
+# =============================================================================
 
-# Nextflow gitignore
-.idea/**
+# Large bioinformatics data files (already in .cursorignore, but also gitignore)
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.fasta
+*.fa
+*.fasta.gz
+*.fa.gz
+*.bam
+*.bam.bai
+*.sam
+*.vcf
+*.vcf.gz
+*.bcf
+*.bcf.gz
+*.bed
+*.bed.gz
+*.gtf
+*.gtf.gz
+*.gff
+*.gff3
+*.gff.gz
+*.gff3.gz
+*.bw
+*.bigwig
+*.bigWig
+*.bigbed
+*.bigBed
+*.bb
+*.h5
+*.hdf5
+*.h5ad
+*.loom
+*.mtx
+*.mtx.gz
+
+# =============================================================================
+# NEXTFLOW SPECIFIC
+# =============================================================================
+
+# Nextflow execution files
+.nextflow/
+.nextflow.log*
+.nextflow.pid
+.nextflow.trace
+.nextflow.timeline
+.nextflow.report
+.nextflow.dag
+.nextflow.dot
+.nextflow.checksum
+.nextflow.schema.json
+
+# Work directories
+work/
+WORK/
+.nf-test/
+
+# Pipeline outputs
+results/
+RESULTS/
+outputs/
+OUTPUTS/
+output/
+OUTPUT/
+
+# =============================================================================
+# BIOINFORMATICS DATA DIRECTORIES
+# =============================================================================
+
+# Raw and processed data
+data/
+DATA/
+raw_data/
+processed_data/
+aligned/
+mapped/
+unmapped/
+trimmed/
+filtered/
+merged/
+deduplicated/
+sorted/
+indexed/
+annotated/
+variants/
+peaks/
+motifs/
+
+# Analysis results
+pathways/
+networks/
+clusters/
+differential/
+enrichment/
+expression/
+methylation/
+chromatin/
+epigenetic/
+transcriptome/
+proteome/
+metabolome/
+genome/
+assembly/
+annotation/
+phylogeny/
+taxonomy/
+alignment/
+tree/
+matrix/
+distance/
+similarity/
+correlation/
+regression/
+classification/
+clustering/
+dimensionality/
+reduction/
+
+# Visualization outputs
+visualization/
+plot/
+figure/
+image/
+graph/
+heatmap/
+volcano/
+scatter/
+boxplot/
+histogram/
+density/
+distribution/
+
+# =============================================================================
+# LOGS AND OUTPUTS
+# =============================================================================
+
+# Log files (allow specific ones in git)
+*.log
+*.out
+*.err
+*.stdout
+*.stderr
+*.pid
+*.lock
+slurm_logs/
+SLURM_LOGS/
+
+# =============================================================================
+# TEMPORARY AND CACHE FILES
+# =============================================================================
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+.#*
+\#*#
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =============================================================================
+# DATABASE AND ARCHIVE FILES
+# =============================================================================
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+*.accdb
+*.dbf
+*.odb
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.rar
+*.7z
+*.gz
+*.bz2
+*.xz
+*.lzma
+*.lz4
+*.zst
+
+# =============================================================================
+# ENVIRONMENT AND DEPENDENCIES
+# =============================================================================
+
+# Virtual environments
+env/
+myenv/
+venv/
+ENV/
+.myenv/
+.venv/
+.env/
+
+# Package managers
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# =============================================================================
+# IDE AND EDITOR FILES
+# =============================================================================
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+.launch.classpath
+
+# =============================================================================
+# CONTAINERS AND DEPLOYMENT
+# =============================================================================
+
+# Docker/Singularity images
+*.sif
+*.img
+*.tar
+
+# =============================================================================
+# SECURITY AND SECRETS
+# =============================================================================
+
+# Environment and secrets
+.env
+.secrets
+*.key
+*.pem
+
+# =============================================================================
+# NEXTFLOW SPECIFIC (from your original)
+# =============================================================================
+
+# Gradle and build files
 .gradle
-.*.log*
-.cache/*
+
+# Vagrant
 .vagrant/*
-.cache/*
-.nextflow*
+Vagrantfile
+
+# Nextflow specific
 .node-nextflow*
 .devcontainer
-.vscode/*
+
+# Module builds
 */*/bin/*
 **/build/**
 build/**
 modules/**/build/
 modules/**/*.iml
 modules/nextflow/work/
+
+# Outputs and temporary
 **/out/*
 tmp/*
-work/*
 nextflow.eml
 nextflow.iml
-Vagrantfile
+
+# Resources and tools
 resources/*
 test/*
 tools/*
@@ -38,8 +312,144 @@ docker-test
 docker/dist
 docker/nextflow
 temp
-.dockerignore
-.launch.classpath
+
+# Plugins and sandbox
 plugins-prod
 sandbox
 wave-tests
+
+# =============================================================================
+# STATISTICS AND ANALYSIS FILES
+# =============================================================================
+
+# Analysis outputs
+statistics/
+test/
+analysis/
+report/
+summary/
+debug/
+trace/
+profile/
+benchmark/
+performance/
+timing/
+memory/
+cpu/
+gpu/
+
+# =============================================================================
+# COMPUTING AND INFRASTRUCTURE
+# =============================================================================
+
+# Computing resources
+parallel/
+distributed/
+cluster/
+grid/
+cloud/
+
+# Software and tools
+docker/
+singularity/
+conda/
+environment/
+dependency/
+requirement/
+setup/
+install/
+build/
+compile/
+link/
+library/
+module/
+package/
+tool/
+software/
+pipeline/
+workflow/
+script/
+program/
+application/
+service/
+api/
+
+# =============================================================================
+# DEVELOPMENT AND PROGRAMMING
+# =============================================================================
+
+# Programming languages (keep source code, ignore builds)
+database/
+table/
+index/
+query/
+sql/
+nosql/
+graphql/
+rest/
+http/
+https/
+web/
+server/
+client/
+frontend/
+backend/
+ui/
+ux/
+interface/
+gui/
+cli/
+terminal/
+shell/
+bash/
+python/
+r/
+julia/
+matlab/
+java/
+c/
+cpp/
+fortran/
+perl/
+ruby/
+javascript/
+typescript/
+html/
+css/
+xml/
+json/
+yaml/
+toml/
+ini/
+conf/
+config/
+settings/
+parameter/
+argument/
+option/
+flag/
+switch/
+variable/
+constant/
+function/
+method/
+class/
+object/
+namespace/
+scope/
+context/
+state/
+model/
+view/
+controller/
+framework/
+sdk/
+plugin/
+extension/
+addon/
+component/
+widget/
+element/
+node/
+edge/
+vertex/

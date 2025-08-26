@@ -1,43 +1,5 @@
-# Don't index data
-TEST_DATA/**/*.fastq
-TEST_DATA/**/*.fastq.gz
-TEST_DATA/**/*.fq
-TEST_DATA/**/*.fq.gz
-TEST_DATA/**/*.fasta
-TEST_DATA/**/*.fa
-TEST_DATA/**/*.fasta.gz
-TEST_DATA/**/*.fa.gz
-TEST_DATA/**/*.bam
-TEST_DATA/**/*.bam.bai
-TEST_DATA/**/*.sam
-TEST_DATA/**/*.vcf
-TEST_DATA/**/*.vcf.gz
-TEST_DATA/**/*.bcf
-TEST_DATA/**/*.bcf.gz
-TEST_DATA/**/*.bed
-TEST_DATA/**/*.bed.gz
-TEST_DATA/**/*.gtf
-TEST_DATA/**/*.gtf.gz
-TEST_DATA/**/*.gff
-TEST_DATA/**/*.gff3
-TEST_DATA/**/*.gff.gz
-TEST_DATA/**/*.gff3.gz
-TEST_DATA/**/*.bw
-TEST_DATA/**/*.bigwig
-TEST_DATA/**/*.bigbed
-TEST_DATA/**/*.bb
-TEST_DATA/**/*.h5
-TEST_DATA/**/*.hdf5
-TEST_DATA/**/*.h5ad
-TEST_DATA/**/*.loom
-TEST_DATA/**/*.mtx
-TEST_DATA/**/*.mtx.gz
-TEST_DATA/**/*.csv
-TEST_DATA/**/*.tsv
-TEST_DATA/**/*.txt
-TEST_DATA/**/*.dat
-TEST_DATA/**/*.raw
-TEST_DATA/**/*.bin
+# Don't index TEST_DATA
+TEST_DATA/
 
 # Don't index SLURM_LOGS
 SLURM_LOGS/

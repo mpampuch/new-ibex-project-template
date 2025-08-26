@@ -57,6 +57,7 @@ cache/
 CACHE/
 
 # My custom folders
+data/
 DATA/
 
 # Allow viewing logs
