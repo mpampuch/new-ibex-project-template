@@ -24,7 +24,9 @@
 *.gff3.gz
 *.bw
 *.bigwig
+*.bigWig
 *.bigbed
+*.bigBed
 *.bb
 *.h5
 *.hdf5
@@ -38,6 +40,79 @@
 *.dat
 *.raw
 *.bin
+*.html
+*.pdf
+*.png
+*.jpg
+
+# Allow Samplesheets
+!*samplesheet*.csv
+!*samplesheet*.tsv
+!*samplesheet*.txt
+
+# Caches and Work if they appear in the directory
+work/
+WORK/
+cache/
+CACHE/
+
+# My custom folders
+DATA/
+
+# Allow viewing logs
+!OUTPUTS/**/*.log*
+!OUTPUTS/**/*.out*
+!OUTPUTS/**/*.err*
+!SLURM_LOGS/**/*.log*
+!SLURM_LOGS/**/*.out*
+!SLURM_LOGS/**/*.err*
+
+# Allow Test Data folder to see data
+!TEST_DATA/**/*.fastq
+!TEST_DATA/**/*.fastq.gz
+!TEST_DATA/**/*.fq
+!TEST_DATA/**/*.fq.gz
+!TEST_DATA/**/*.fasta
+!TEST_DATA/**/*.fa
+!TEST_DATA/**/*.fasta.gz
+!TEST_DATA/**/*.fa.gz
+!TEST_DATA/**/*.bam
+!TEST_DATA/**/*.bam.bai
+!TEST_DATA/**/*.sam
+!TEST_DATA/**/*.vcf
+!TEST_DATA/**/*.vcf.gz
+!TEST_DATA/**/*.bcf
+!TEST_DATA/**/*.bcf.gz
+!TEST_DATA/**/*.bed
+!TEST_DATA/**/*.bed.gz
+!TEST_DATA/**/*.gtf
+!TEST_DATA/**/*.gtf.gz
+!TEST_DATA/**/*.gff
+!TEST_DATA/**/*.gff3
+!TEST_DATA/**/*.gff.gz
+!TEST_DATA/**/*.gff3.gz
+!TEST_DATA/**/*.bw
+!TEST_DATA/**/*.bigwig
+!TEST_DATA/**/*.bigWig
+!TEST_DATA/**/*.bigbed
+!TEST_DATA/**/*.bigBed
+!TEST_DATA/**/*.bb
+!TEST_DATA/**/*.h5
+!TEST_DATA/**/*.hdf5
+!TEST_DATA/**/*.h5ad
+!TEST_DATA/**/*.loom
+!TEST_DATA/**/*.mtx
+!TEST_DATA/**/*.mtx.gz
+!TEST_DATA/**/*.csv
+!TEST_DATA/**/*.tsv
+!TEST_DATA/**/*.txt
+!TEST_DATA/**/*.dat
+!TEST_DATA/**/*.raw
+!TEST_DATA/**/*.bin
+!TEST_DATA/**/*.html
+!TEST_DATA/**/*.pdf
+!TEST_DATA/**/*.png
+!TEST_DATA/**/*.jpg
 
 # Genomics and sequencing data directories
 data/
@@ -268,9 +343,11 @@ desktop.ini
 *.zst
 
 # Virtual environments and package managers
+myenv/
 venv/
 env/
 ENV/
+.myenv/
 .venv/
 .env/
 node_modules/
@@ -318,3 +395,14 @@ checkpoints/
 weights/
 embeddings/
 features/
+
+# Docker/Singularity images
+*.sif
+*.img
+*.tar
+
+# Environment and secrets
+.env
+.secrets
+*.key
+*.pem

@@ -23,7 +23,7 @@ mkdir -p $NXF_WORK
 echo "Nextflow WORK directory will be outputted at $NXF_WORK"
 
 # Make DATA and OUTPUTS folder
-mkdir -p DATA OUTPUTS
+mkdir -p DATA OUTPUTS TEST_DATA
 
 # Reset README.md
 echo -e "# README.md\n" > README.md
