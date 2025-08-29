@@ -10,9 +10,17 @@ Guidelines for creating effective, concise, and well-structured Nextflow pipelin
 
 Documentaiion and guidelines for the required technologies can be found here. Refer to them if you are unsure about something.
 
-- Nextflow Documentation: https://www.nextflow.io/docs/latest/
-- nf-core Documentation: https://nf-co.re/docs/
-- nf-core Guidelines: https://nf-co.re/docs/guidelines/
-- nf-core tools Documentation: https://nf-co.re/docs/nf-core-tools
-- nf-test Documentation: https://www.nf-test.com/docs/getting-started/
-- nf-schema Documentation: https://nextflow-io.github.io/nf-schema/latest/
+- Nextflow documentation: https://www.nextflow.io/docs/latest/
+- nf-core documentation: https://nf-co.re/docs/
+- nf-core guidelines: https://nf-co.re/docs/guidelines/
+- nf-core tools documentation: https://nf-co.re/docs/nf-core-tools
+- nf-test documentation: https://www.nf-test.com/docs/getting-started/
+- nf-schema documentation: https://nextflow-io.github.io/nf-schema/latest/
+
+### Other Helpul Documentation
+
+Below are links to the documentation for other important technologies that Nextflow and nf-core often interact with. Refer to them when necessary.
+
+- MultiQC documentation: https://docs.seqera.io/multiqc
+- Wave containers documentation: https://docs.seqera.io/wave
+- Fusion file system documentation: https://docs.seqera.io/fusion
