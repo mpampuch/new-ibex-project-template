@@ -85,6 +85,7 @@ Below are links to the documentation for other important technologies that Nextf
 - Enable Wave for container management
 
 ### Testing Requirements
+- Follow the best practices of test-driven development
 - Use nf-test framework for testing
 - Test all processes and workflows
 - Include minimal test datasets
