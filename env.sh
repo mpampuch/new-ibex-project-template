@@ -22,8 +22,8 @@ export NXF_WORK=/ibex/scratch/projects/c2303/work
 mkdir -p $NXF_WORK 
 echo "Nextflow WORK directory will be outputted at $NXF_WORK"
 
-# Make DATA and OUTPUTS folder
-mkdir -p DATA OUTPUTS TEST_DATA
+# Make additional folders
+mkdir -p DATA OUTPUTS TESTS/(TEST_DATA,TEST_OUTPUTS)
 
 # Reset README.md
 echo -e "# README.md\n" > README.md
