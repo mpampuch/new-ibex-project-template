@@ -91,6 +91,18 @@ Below are links to the documentation for other important technologies that Nextf
 - Include minimal test datasets
 - Use assertAll() for comprehensive testing
 - Test both success and failure scenarios
+- Test names should be descriptive and indicate what is being tested.
+  - Good test names should:
+    - Start with "Should" to make it clear what the expected behavior is
+    - Describe the specific functionality or scenario being tested
+    - Be clear enough that if the test fails, you know what functionality is broken
+  - Examples:
+    - "Should convert input to uppercase" - when testing specific functionality
+    - "Should handle empty input gracefully" - when testing edge cases
+    - "Should respect max memory parameter" - when testing resource constraints
+    - "Should create expected output files" - when testing file generation
+
+Describe the specific functionality or scenario being tested
 
 ### Documentation Standards
 - Include comprehensive README.md
