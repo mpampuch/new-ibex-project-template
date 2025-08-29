@@ -1,5 +1,20 @@
 #!/usr/bin/env bash
 
+# Parse flags
+SKIP_INIT=false
+while getopts "e" opt; do
+  case $opt in
+    e)
+      SKIP_INIT=true
+      ;;
+    *)
+      echo "Usage: $0 [-e]"
+      echo "  -e   Skip nf-core and nf-test initialization"
+      return 1
+      ;;
+  esac
+done
+
 # Load required modules
 module load nextflow/25.04.2
 module load singularity/3.9.7
@@ -28,5 +43,9 @@ mkdir -p DATA OUTPUTS TESTS/(TEST_DATA,TEST_OUTPUTS)
 # Reset README.md
 echo -e "# README.md\n" > README.md
 
-# Create an nf-core pipeline and initialize nf-test (if this is not what you want just control ^C out of it)
-nf-core pipelines create && nf-test init && nf-test generate pipeline main.nf
+# Create an nf-core pipeline and initialize nf-test unless skipped
+if [ "$SKIP_INIT" = false ]; then
+  nf-core pipelines create && nf-test init && nf-test generate pipeline main.nf
+else
+  echo "Skipping nf-core and nf-test initialization (flag -e passed)."
+fi

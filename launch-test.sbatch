@@ -21,7 +21,7 @@ export NXF_APPTAINER_CACHEDIR=/ibex/scratch/projects/c2303/NXF_APPTAINER_CACHEDI
 export NXF_WORK=/ibex/scratch/projects/c2303/work
 
 # Activate your environment for your job (if necessary)
-# source env.sh 
+# source env.sh -e
 
 # Activate a conda enviroment (if necessary)
 # source "/ibex/user/pampum/mambaforge/etc/profile.d/conda.sh" # Initialize Conda for use in this script

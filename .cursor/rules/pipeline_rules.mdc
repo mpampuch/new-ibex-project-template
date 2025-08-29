@@ -1,0 +1,18 @@
+---
+alwaysApply: false
+---
+
+# Notes Rules for Agentic AI
+
+Guidelines for creating effective, concise, and well-structured Nextflow pipelines.
+
+## Documentatation
+
+Documentaiion and guidelines for the required technologies can be found here. Refer to them if you are unsure about something.
+
+- Nextflow Documentation: https://www.nextflow.io/docs/latest/
+- nf-core Documentation: https://nf-co.re/docs/
+- nf-core Guidelines: https://nf-co.re/docs/guidelines/
+- nf-core tools Documentation: https://nf-co.re/docs/nf-core-tools
+- nf-test Documentation: https://www.nf-test.com/docs/getting-started/
+- nf-schema Documentation: https://nextflow-io.github.io/nf-schema/latest/
