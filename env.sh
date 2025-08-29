@@ -27,3 +27,6 @@ mkdir -p DATA OUTPUTS TESTS/(TEST_DATA,TEST_OUTPUTS)
 
 # Reset README.md
 echo -e "# README.md\n" > README.md
+
+# Create an nf-core pipeline and initialize nf-test (if this is not what you want just control ^C out of it)
+nf-core pipelines create && nf-test init && nf-test generate pipeline main.nf
