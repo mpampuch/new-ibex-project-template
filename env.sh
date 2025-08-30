@@ -47,8 +47,8 @@ echo -e "# README.md\n" > README.md
 if [ "$SKIP_INIT" = false ]; then
   nf-core pipelines create --template-yaml pipeline-template.yml
   sleep 3
-  cp nf-core-pipeline/* .
-  cp nf-core-pipeline/.* .
+  cp -r nf-core-pipeline/* .
+  cp -r nf-core-pipeline/.* .
   rm -rf nf-core-pipeline
   nf-test init
   nf-test generate pipeline main.nf
