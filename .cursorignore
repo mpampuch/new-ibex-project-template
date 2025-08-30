@@ -351,6 +351,8 @@ ENV/
 .myenv/
 .venv/
 .env/
+.mamba*
+.conda*
 node_modules/
 __pycache__/
 *.pyc
@@ -407,3 +409,15 @@ features/
 .secrets
 *.key
 *.pem
+
+# Nextflow files
+.nextflow
+
+# nf-core files
+ro-crate-metadata.json
+tower.yml
+LICENSE
+.nf-core.yml
+
+# nf-test files
+.nf-test
