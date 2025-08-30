@@ -354,3 +354,11 @@ pv FILENAME.tar.gz | md5sum > FILENAME.tar.gz.md5
 ```
 
 to ensure that the data transferred is exactly the same on both machines (the `ibex2dw` script I created does this automatically)
+
+## Nextflow VSCode extension
+
+Nextflow extension requires java version 17 or above to work. To get this to work on the when sshing to vscode on the IBEX (`vscode.ibex.kaust.edu.sa`), make sure you set this setting on VSCode.
+
+```json 
+"nextflow.java.home": "/ibex/sw/tools/java/jdk-24/linux_binary/jdk-24.0.2"
+```
