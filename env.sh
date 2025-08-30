@@ -45,7 +45,12 @@ echo -e "# README.md\n" > README.md
 
 # Create an nf-core pipeline and initialize nf-test unless skipped
 if [ "$SKIP_INIT" = false ]; then
-  nf-core pipelines create && nf-test init && nf-test generate pipeline main.nf
+  nf-core pipelines create --template-yaml pipeline-template.yml
+  mv nf-core-pipeline/* .
+  mv nf-core-pipeline/.* .
+  rmdir nf-core-pipeline
+  nf-test init
+  nf-test generate pipeline main.nf
 else
   echo "Skipping nf-core and nf-test initialization (flag -e passed)."
 fi

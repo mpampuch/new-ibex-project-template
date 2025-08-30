@@ -1,0 +1,20 @@
+org: nf-core
+name: pipeline
+description: TODO
+author: Mark Pampuch
+version: 1.0.0dev
+force: true
+outdir: .
+skip_features:
+  - github
+  - github_badges
+  - ci
+  - igenomes
+  - fastqc
+  - gpu
+  - gitpod
+  - codespaces
+  - code_linters
+  - adaptivecard
+  - slackreport
+is_nfcore: false
