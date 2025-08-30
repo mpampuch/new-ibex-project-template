@@ -52,6 +52,8 @@ if [ "$SKIP_INIT" = false ]; then
   rm -rf nf-core-pipeline
   nf-test init
   nf-test generate pipeline main.nf
+  # test to make sure everything ran correctly
+  nextflow run . -profile singularity,test --outdir TEST_OUTPUTS/PIPELINE-GENERATION-TEST && echo "Nextflow pipeline ran successfully. Pipeline boilerplate generation worked and is ready for modification"
 else
   echo "Skipping nf-core and nf-test initialization (flag -e passed)."
 fi
