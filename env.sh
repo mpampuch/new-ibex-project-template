@@ -47,6 +47,7 @@ echo -e "# README.md\n" > README.md
 if [ "$SKIP_INIT" = false ]; then
   nf-core pipelines create --template-yaml pipeline-template.yml
   sleep 3
+  rm nf-core-pipeline/.gitignore # Don't copy this to prevent it from overwriting my own
   cp -r nf-core-pipeline/{*,.*} . 
   rm -rf nf-core-pipeline
   nf-test init
