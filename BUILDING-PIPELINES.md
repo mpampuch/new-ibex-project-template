@@ -1,0 +1,105 @@
+Steps to build pipelines:
+
+1. Make a new project directory and run `newproj`
+
+   - This should run a smoke test (verifying the scaffold runs), if not run it yourself to make sure boiler plate is good
+
+2. Commit
+
+3. Get appropriate test data and put it into TESTS/TEST_DATA
+
+   1. use the `nf-core test-datasets` to help you with this
+
+4. Populate `samplesheet.test.csv` with test data
+
+5. Update `assets/schema_input.json`
+
+6. Update your test profile `conf/test.config`
+
+```
+input = "${projectDir}/samplesheet.test.csv"
+```
+
+6. Commit
+
+7. Sample sheet extraction will try to be handled `subworkflows/local/utils_nfcore_pipeline_pipeline/main.nf`.
+
+although you might have to edit it:
+
+```groovy
+// BEFORE
+   Channel
+        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+        .map {
+            meta, fastq_1, fastq_2 ->
+                if (!fastq_2) {
+                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
+                } else {
+                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
+                }
+        }
+        .groupTuple()
+        .map { samplesheet ->
+            validateInputSamplesheet(samplesheet)
+        }
+        .map {
+            meta, fastqs ->
+                return [ meta, fastqs.flatten() ]
+        }
+        .set { ch_samplesheet }
+
+// AFTER
+    Channel.fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+        .map { meta, reads, primary_assembly, alternate_assembly ->
+            return [meta, reads, primary_assembly, alternate_assembly]
+        }
+        .set { ch_samplesheet }
+```
+
+8. Check what the sample sheet extraction looks adding this to `workflows/main.nf`. Example:
+
+```groovy
+workflow PIPELINE {
+
+    take:
+    ch_samplesheet // channel: samplesheet read in from --input
+    main:
+
+    ch_samplesheet.view() // Add this
+
+    // OR
+
+    ch_samplesheet.map { meta, reads, primary_assembly, alternate_assembly ->
+        log.info("Processing sample: ${meta.id}")
+        log.info("  Reads: ${reads}")
+        log.info("  Primary assembly: ${primary_assembly}")
+        log.info("  Alternate assembly: ${alternate_assembly}")
+
+        // Return the processed data for further processing
+        [meta, reads, primary_assembly, alternate_assembly]
+    }
+
+
+    ...
+```
+
+Then run
+
+```
+bash
+```
+
+9. If it's good, commit input handling.
+
+```bash
+git add .
+git commit -m "parse samplesheet correctly"
+```
+
+10. Begin adding modules using Test driven development.
+1. Check if the program you're looking for is already an nf-core module, with `nf-core modules list remote`
+
+   1. If it is, add it with `nf-core modules install`
+   2. If it isn't create one with with `nf-core modules create`
+
+1. Create a new subworkflow to add your modules with `nf-core subworkflows create`
