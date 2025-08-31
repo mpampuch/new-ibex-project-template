@@ -196,8 +196,6 @@ Example:
 
 ![IBEX working environment](https://i.imgur.com/hNDYT1c.jpg)
 
-
-
 ## Backing up your code-server extensions
 
 This repository contains all the files for the extensions I downloaded for use on code-server on the KAUST IBEX https://github.com/mpampuch/ibex-code-server-extensions-backup.
