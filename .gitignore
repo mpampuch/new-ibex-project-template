@@ -67,6 +67,8 @@ outputs/
 OUTPUTS/
 output/
 OUTPUT/
+TESTS/TEST_OUTPUTS/
+
 
 # =============================================================================
 # BIOINFORMATICS DATA DIRECTORIES
@@ -75,6 +77,7 @@ OUTPUT/
 # Raw and processed data
 data/
 DATA/
+TESTS/TEST_DATA/
 raw_data/
 processed_data/
 aligned/
