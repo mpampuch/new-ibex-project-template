@@ -36,9 +36,12 @@ echo "Created Nextflow Apptainer cache directory at $NXF_APPTAINER_CACHEDIR"
 export NXF_WORK=/ibex/scratch/projects/c2303/work
 mkdir -p $NXF_WORK 
 echo "Nextflow WORK directory will be outputted at $NXF_WORK"
+ln -s "$NXF_WORK" work_symlink
+echo "Nextflow WORK directory SymLink generated at ./work_symlink"
 
 # Make additional folders
 mkdir -p DATA OUTPUTS TESTS/{TEST_DATA,TEST_OUTPUTS}
+echo "DATA, OUTPUTS and TEST data directories (TESTS/TEST_DATA, TESTS/TEST_OUTPUTS) generated."
 
 # Reset README.md
 echo -e "# README.md\n" > README.md
