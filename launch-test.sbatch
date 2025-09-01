@@ -30,7 +30,7 @@ export NXF_WORK=/ibex/scratch/projects/c2303/work
 # Put in your file paths
 # E.g.
 INPUT_FILE="samplesheet.test.csv"
-CONFIG_FILE=""$CONFIG_FILE""
+CONFIG_FILE="$CONFIG_FILE"
 NXF_OUTPUT_DIR="TESTS/TEST_OUTPUTS/$(date -Iseconds | sed 's/-//g; s/://g; s/T/_/; s/+.*//')"
 NXF_LOG_FILE="$NXF_OUTPUT_DIR/nextflow.log"
 
