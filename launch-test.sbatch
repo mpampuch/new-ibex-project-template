@@ -30,7 +30,7 @@ export NXF_WORK=/ibex/scratch/projects/c2303/work
 # Put in your file paths
 # E.g.
 INPUT_FILE="samplesheet.test.csv"
-CONFIG_FILE="$CONFIG_FILE"
+CONFIG_FILE="nextflow.config"
 NXF_OUTPUT_DIR="TESTS/TEST_OUTPUTS/$(date -Iseconds | sed 's/-//g; s/://g; s/T/_/; s/+.*//')"
 NXF_LOG_FILE="$NXF_OUTPUT_DIR/nextflow.log"
 
@@ -42,7 +42,7 @@ cp "$0" "$NXF_OUTPUT_DIR/slurm_script.sbatch" # Copy the script to the output di
 echo "$(pwd)" > "$NXF_OUTPUT_DIR/projectDir.txt"
 
 # Run your job script here
-nextflow -log "$NXF_LOG_FILE" run . -with-report -profile singularity,test --outdir "$NXF_OUTPUT_DIR"
+nextflow -log "$NXF_LOG_FILE" run . -c "$CONFIG_FILE" -with-report -profile singularity,test --outdir "$NXF_OUTPUT_DIR"
 
 # Examples
 # nextflow -log "$NXF_LOG_FILE" run nf-core/fetchngs  -r 1.12.0 -c "$CONFIG_FILE" -with-report -profile singularity,test --input "$INPUT_FILE" --download_method sratools --outdir "$NXF_OUTPUT_DIR";
