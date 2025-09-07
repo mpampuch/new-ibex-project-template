@@ -1,18 +1,11 @@
 #!/usr/bin/env bash
 
-# Parse flags
+# Parse flags manually (robust for sourced scripts)
 SKIP_INIT=false
-while getopts "e" opt; do
-  case $opt in
-    e)
-      SKIP_INIT=true
-      ;;
-    *)
-      echo "Usage: $0 [-e]"
-      echo "  -e   Skip nf-core and nf-test initialization"
-      return 1
-      ;;
-  esac
+for arg in "$@"; do
+  if [[ "$arg" == "-e" ]]; then
+    SKIP_INIT=true
+  fi
 done
 
 # Load required modules
