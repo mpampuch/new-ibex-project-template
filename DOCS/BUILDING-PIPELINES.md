@@ -103,3 +103,38 @@ git commit -m "parse samplesheet correctly"
    2. If it isn't create one with with `nf-core modules create`
 
 1. Create a new subworkflow to add your modules with `nf-core subworkflows create`
+
+
+## Working with Seqera AI on the HPC
+
+As of September 2025, working with Seqera AI on an HPC is a little bit finicky because it doesn't have cursor-style integration. It is only run through the website. So to be able to pass in your codebase on the HPC and quickly review the edits you need to use some remote repository intermediate. 
+
+I have created a quick workflow to do this.
+
+1. On the HPC, create a GitHub repository with your edits. 
+
+2. Connect this repository to Seqera AI and ask it to do something for you.
+
+3. When it's done, download the `.tar.gz` file, and I have created a helper script `~/custom-bash-scripts/upload-and-pr-seqera.sh` to create a branch on the remote repository with the Seqera AI edits.
+    - Importantly, this runs `BRANCH_NAME="auto-upload-$(date +%Y%m%d%H%M%S)"`, which creates a new branch with a timestamp in your remote repository.
+
+4. On the HPC, use git to integrate your changes
+
+```bash
+# Fetch the remote
+git fetch
+
+# View that the new branch is there
+git branch -a
+
+# Switch to your master/main branch
+git checkout master
+
+# Merge the new branch
+git merge origin/auto-upload-20250908142426
+
+# Review the edits
+
+# Once done, delete the remote branch
+git push origin --delete auto-upload-20250908142426
+```
