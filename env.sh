@@ -70,7 +70,6 @@ if [ "$SKIP_INIT" = false ]; then
   git remote set-url origin git@github.com:$ORG_NAME/$REPO_NAME.git # For personal projects use: git remote set-url origin git@github.com:$(gh api user --jq .login)/$REPO_NAME.git
   echo "New remote endpoints set to:" ; git remote -v
   git push -u origin master
-  git remote -v | awk '{print $2}' | uniq > .git-remote.txt # Add remote to a file for easier automation with SeqeraAI
   unset GITHUB_TOKEN # Remove the GITHUB token from your envioronmental variables
 
   else
