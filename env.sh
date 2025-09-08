@@ -70,7 +70,7 @@ if [ "$SKIP_INIT" = false ]; then
   git remote set-url origin git@github.com:$ORG_NAME/$REPO_NAME.git # For personal projects use: git remote set-url origin git@github.com:$(gh api user --jq .login)/$REPO_NAME.git
   echo "New remote endpoints set to:" ; git remote -v
   git push -u origin master
-  unset GITHUB_TOKEN # Remove the GITHUB token from your envioronmental variables
+  unset GITHUB_TOKEN # Remove the GITHUB token from your environmental variables
 
   else
   echo "Skipping nf-core and nf-test initialization (flag -e passed)."
