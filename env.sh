@@ -11,6 +11,7 @@ done
 # Load required modules
 module load nextflow/25.04.2
 module load singularity/3.9.7
+module load github-cli/2.46/binary
 
 # Configure your environment variables
 export NXF_OPTS='-Xms3G -Xmx5G'
@@ -38,6 +39,10 @@ echo "DATA, OUTPUTS and TEST data directories (TESTS/TEST_DATA, TESTS/TEST_OUTPU
 
 # Reset README.md
 echo -e "# README.md\n" > README.md
+
+# Make this a safe directory
+# git config --add safe.directory .
+
 
 # Create an nf-core pipeline and initialize nf-test unless skipped
 if [ "$SKIP_INIT" = false ]; then
