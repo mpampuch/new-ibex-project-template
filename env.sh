@@ -56,6 +56,21 @@ if [ "$SKIP_INIT" = false ]; then
   # test to make sure everything ran correctly
   OUTDIR=TESTS/TEST_OUTPUTS/PIPELINE-GENERATION-TEST
   nextflow -log "$OUTDIR/nextflow.log" run . -profile singularity,test --outdir $OUTDIR && echo "Nextflow pipeline ran successfully. Pipeline boilerplate generation worked and is ready for modification"
+
+  # Push to GitHub
+  # Get Authentication
+  echo "Creating a git repository at $ORG_NAME/$REPO_NAME"
+  source ~/.secrets/github.sh # Loads the GITHUB_TOKEN
+  ORG_NAME="mpampuch-bioinformatics-pipelines"
+  REPO_NAME=$(basename "$(pwd)")
+  gh repo create "$ORG_NAME/$REPO_NAME" --public --source=. --remote=origin
+  echo "Remote endpoints set to:"
+  git remote -v
+  # Make the remote ssh
+  echo "Modifying the remote endpoints to be ssh endpoints (recommended for HPC workflows)"
+  git remote set-url origin git@github.com:$ORG_NAME/$REPO_NAME.git # For personal projects use: git remote set-url origin git@github.com:$(gh api user --jq .login)/$REPO_NAME.git
+  git push -u origin master
+  unset GITHUB_TOKEN
 else
   echo "Skipping nf-core and nf-test initialization (flag -e passed)."
 fi
