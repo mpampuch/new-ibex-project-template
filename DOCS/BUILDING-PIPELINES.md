@@ -83,20 +83,34 @@ workflow PIPELINE {
     ...
 ```
 
+9. Now begin testing with nf-test. First, edit `nf-test.config` to use singularity 
+
+```groovy
+profile "singularity,test"
+```
+
+10. Modify `tests/default.nf.test` with all your desired tests
+
 Then run
 
-```
-bash
+```bash
+nf-test test tests/default.nf.test --verbose
 ```
 
-9. If it's good, commit input handling.
+11. If it's good, commit input handling.
+
+```bash
+git add .
+git commit -m "update parsing samplesheet "
+```
+
 
 ```bash
 git add .
 git commit -m "parse samplesheet correctly"
 ```
 
-10. Begin adding modules using Test driven development.
+12. Begin adding modules using Test driven development.
 1. Check if the program you're looking for is already an nf-core module, with `nf-core modules list remote`
 
    1. If it is, add it with `nf-core modules install`
