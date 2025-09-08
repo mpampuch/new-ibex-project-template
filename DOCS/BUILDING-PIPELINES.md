@@ -114,6 +114,14 @@ git commit -m "parse samplesheet correctly"
 1. Check if the program you're looking for is already an nf-core module, with `nf-core modules list remote`
 
    1. If it is, add it with `nf-core modules install`
+    - By default, `nf-test init` will generate the following lines in `nf-test.config`
+    ```groovy
+    // ignore tests coming from the nf-core/modules repo
+    ignore 'modules/nf-core/**/tests/*', 'subworkflows/nf-core/**/tests/*'
+    ```
+    - This means that any tests for modules and subworkflows you pull from nf-core will be ignored (you can verify this with `nf-test list`). 
+    - You can therefore skip writing theses for these modules and just take for granted that they work.
+    - However, if you want to test something to be sure, remember to remove these lines from the config file.
    2. If it isn't create one with with `nf-core modules create`
 
 1. Create a new subworkflow to add your modules with `nf-core subworkflows create`
