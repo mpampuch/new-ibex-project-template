@@ -321,6 +321,9 @@ plugins-prod
 sandbox
 wave-tests
 
+# Test files
+*.test.snap
+
 # =============================================================================
 # STATISTICS AND ANALYSIS FILES
 # =============================================================================
@@ -424,7 +427,6 @@ json/
 yaml/
 toml/
 ini/
-conf/
 config/
 settings/
 parameter/
