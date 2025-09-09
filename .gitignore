@@ -297,6 +297,7 @@ modules/nextflow/work/
 # Outputs and temporary
 **/out/*
 tmp/*
+TMP/*
 nextflow.eml
 nextflow.iml
 
