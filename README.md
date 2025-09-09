@@ -196,6 +196,14 @@ Example:
 
 ![IBEX working environment](https://i.imgur.com/hNDYT1c.jpg)
 
+## Running jobs interactively on IBEX
+
+To run using SLURM interactively, you can use the srun command to allocate a compute node.
+
+```bash
+srun --time=08:00:00 --mem=128G --cpus-per-task=16 --pty bash
+```
+
 ## Backing up your code-server extensions
 
 This repository contains all the files for the extensions I downloaded for use on code-server on the KAUST IBEX https://github.com/mpampuch/ibex-code-server-extensions-backup.
