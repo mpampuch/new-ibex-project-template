@@ -1,4 +1,4 @@
-Steps to build pipelines:
+# Steps to build pipelines:
 
 1. Make a new project directory and run `newproj`
 
