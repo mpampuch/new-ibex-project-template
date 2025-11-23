@@ -1,0 +1,32 @@
+{
+  "discriminator" : "slurm-platform",
+  "environment" : [ {
+    "name" : "NXF_OPTS",
+    "value" : "'-Xms3G -Xmx5G'",
+    "head" : true,
+    "compute" : false
+  }, {
+    "name" : "NXF_SINGULARITY_CACHEDIR",
+    "value" : "/ibex/scratch/projects/c2303/NXF_SINGULARITY_CACHEDIR",
+    "head" : true,
+    "compute" : false
+  }, {
+    "name" : "NXF_APPTAINER_CACHEDIR",
+    "value" : "/ibex/scratch/projects/c2303/NXF_APPTAINER_CACHEDIR",
+    "head" : true,
+    "compute" : false
+  }, {
+    "name" : "NXF_WORK",
+    "value" : "/ibex/scratch/projects/c2303/work",
+    "head" : true,
+    "compute" : false
+  } ],
+  "launchDir" : "/ibex/scratch/projects/c2303/.tower-launches",
+  "headJobOptions" : "--time=13-00:00:00 --cpus-per-task=1 --mem=5G",
+  "workDir" : "$TW_AGENT_WORK",
+  "preRunScript" : "module load singularity nextflow",
+  "nextflowConfig" : "process {\n  executor = 'slurm'\n  clusterOptions = \"-p batch --time=1-00:00:00\"\nsingularity {\n      pullTimeout = '3 hours'\n   }\nmemory = { 256.GB * Math.pow(2, task.attempt - 1) }\n    errorStrategy = { task.exitStatus in 137..140 ? 'retry' : 'ignore' }\n    maxRetries = 3\n}\naws.client.anonymous = true // fixes S3 access issues on self-hosted runners\nworkflow {\n    failOnIgnore = true\n}",
+  "headQueue" : "batch",
+  "computeQueue" : "batch",
+  "labels" : [ ]
+}
