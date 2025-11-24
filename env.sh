@@ -43,6 +43,8 @@ echo -e "# README.md\n" > README.md
 # Make this a safe directory
 # git config --add safe.directory .
 
+# Make all .sh files in this directory executable
+find . -maxdepth 1 -name "*.sh" -exec chmod +x {} \;
 
 # Create an nf-core pipeline and initialize nf-test unless skipped
 if [ "$SKIP_INIT" = false ]; then
