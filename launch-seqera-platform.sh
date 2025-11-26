@@ -62,7 +62,7 @@ fi
 
 COMPUTE_ENV="IBEX"
 PROFILES="singularity,kaust"
-INPUT_FILE="samplesheet.csv" # Comment this out if different runs have different inputs
+INPUT_FILE="$(pwd)/samplesheet.csv" # Comment this out if different runs have different inputs
 TIMESTAMP=$(date -Iseconds | sed 's/-//g; s/://g; s/T/_/; s/+.*//')
 
 NXF_OUTPUT_DIR="$(pwd)/OUTPUTS/$TIMESTAMP"
