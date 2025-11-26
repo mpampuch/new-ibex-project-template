@@ -94,8 +94,8 @@ echo "NXF_LAUNCH_DIR: $NXF_LAUNCH_DIR"
 ################################################################################
 
 # Launch with configuration 1
-RUN_NAME="TEST_RUN_1"
-RUN_LABELS="trimmer_fastp,Test_Run_2,COMMON_LABEL,time_${TIMESTAMP}"
+RUN_NAME="RUN_1"
+RUN_LABELS="time_${TIMESTAMP}"
 echo "RUN_LABELS: $RUN_LABELS"
 RUN_NAME_FULL="${RUN_NAME}_${TIMESTAMP}"
 NXF_OUTPUT_DIR_RUN_SPECIFIC="${NXF_OUTPUT_DIR}/${RUN_NAME}"
@@ -106,10 +106,8 @@ cp $CONFIG_FILE $CONFIG_FILE_RUN_SPECIFIC
 
 # Modify your arguments here
 cat << EOF >> "$CONFIG_FILE_RUN_SPECIFIC"
-// params.input = "$INPUT_FILE"
+params.input = "$INPUT_FILE"
 params.outdir = "$NXF_OUTPUT_DIR_RUN_SPECIFIC"
-
-params.trimmer = "trimgalore"
 
 // process {
 //   withName: '.*MULTIQC.*' {
@@ -131,7 +129,7 @@ tw launch "$PIPELINE_NAME_OR_URL" \
   --name "$RUN_NAME_FULL" \
   --labels "$RUN_LABELS" \
   --compute-env="$COMPUTE_ENV" \
-  --profile "$PROFILES,test" \
+  --profile "$PROFILES" \
   --config $CONFIG_FILE_RUN_SPECIFIC \
   --post-run "${RUN_POST_RUN_SCRIPT_CALLBACK}"
 
@@ -140,40 +138,3 @@ WORKFLOW_RUN_ID=$(tw runs list --max 1 | awk 'NF' |  tail -n 1 | awk '{print $1}
 
 # Build the post run script to copy the run output back to the project directory
 "$(pwd)/UTILS/build_post_run_script.sh" "$NXF_LAUNCH_DIR" "$WORKFLOW_RUN_ID" "$NXF_OUTPUT_DIR_RUN_SPECIFIC" "$RUN_POST_RUN_SCRIPT"
-
-
-################################################################################
-# Launch Run 2
-################################################################################
-
-# # Launch with configuration 1
-# RUN_NAME="TEST_RUN_2"
-# RUN_LABELS="trimmer_fastp,Test_Run_2,COMMON_LABEL,time_${TIMESTAMP}"
-# RUN_NAME_FULL="${RUN_NAME}_${TIMESTAMP}"
-# NXF_OUTPUT_DIR_RUN_SPECIFIC="${NXF_OUTPUT_DIR}/${RUN_NAME}"
-# # Configs
-# CONFIG_FILE="nextflow.config"
-# CONFIG_FILE_RUN_SPECIFIC="$(basename $CONFIG_FILE .config).$RUN_NAME.config"
-# cp $CONFIG_FILE $CONFIG_FILE_RUN_SPECIFIC
-
-# # Modify your arguments here
-# cat << EOF >> "$CONFIG_FILE_RUN_SPECIFIC"
-# // params.input = "$INPUT_FILE"
-# params.outdir = "$NXF_OUTPUT_DIR_RUN_SPECIFIC"
-
-# params.trimmer = "fastp"
-
-# // process {
-# //   withName: '.*MULTIQC.*' {
-# //       ext.args = '--max-size 100g'
-# //   }
-# // }
-# EOF
-
-# # Launch the run
-# tw launch "$PIPELINE_NAME_OR_URL" \
-#   --name "$RUN_NAME_FULL" \
-#   --labels "$RUN_LABELS" \
-#   --compute-env="$COMPUTE_ENV" \
-#   --profile "$PROFILES,test" \
-#   --config $CONFIG_FILE_RUN_SPECIFIC 
