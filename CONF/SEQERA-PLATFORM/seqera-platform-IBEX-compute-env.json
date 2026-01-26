@@ -20,12 +20,27 @@
     "value" : "/ibex/scratch/projects/c2303/work",
     "head" : true,
     "compute" : false
+  }, {
+    "name" : "SINGULARITY_BUILDDIR",
+    "value" : "/ibex/scratch/projects/c2303/NXF_SINGULARITY_CACHEDIR/build",
+    "head" : true,
+    "compute" : false
+  }, {
+    "name" : "SINGULARITY_CACHEDIR",
+    "value" : "/ibex/scratch/projects/c2303/NXF_SINGULARITY_CACHEDIR/cache",
+    "head" : true,
+    "compute" : false
+  }, {
+    "name" : "SINGULARITY_TMPDIR",
+    "value" : "/ibex/scratch/projects/c2303/NXF_SINGULARITY_CACHEDIR/tmp",
+    "head" : true,
+    "compute" : false
   } ],
   "launchDir" : "/ibex/scratch/projects/c2303/.tower-launches",
   "headJobOptions" : "--time=13-00:00:00 --cpus-per-task=1 --mem=5G",
   "workDir" : "$TW_AGENT_WORK",
   "preRunScript" : "module load singularity nextflow",
-  "nextflowConfig" : "process {\n  executor = 'slurm'\n  clusterOptions = \"-p batch --time=1-00:00:00\"\nsingularity {\n      pullTimeout = '3 hours'\n   }\nmemory = { 256.GB * Math.pow(2, task.attempt - 1) }\n    errorStrategy = { task.exitStatus in 137..140 ? 'retry' : 'ignore' }\n    maxRetries = 3\n}\naws.client.anonymous = true // fixes S3 access issues on self-hosted runners\nworkflow {\n    failOnIgnore = true\n}",
+  "nextflowConfig" : "process {\n  executor = 'slurm'\n  clusterOptions = \"-p batch --time=1-00:00:00\"\nmemory = { 256.GB * Math.pow(2, task.attempt - 1) }\n    errorStrategy = { task.exitStatus in 137..140 ? 'retry' : 'ignore' }\n    maxRetries = 3\n}\nsingularity {\n      pullTimeout = '3 hours'\n   }\naws.client.anonymous = true // fixes S3 access issues on self-hosted runners\nworkflow {\n    failOnIgnore = true\n}",
   "headQueue" : "batch",
   "computeQueue" : "batch",
   "labels" : [ ]
