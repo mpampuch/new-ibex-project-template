@@ -204,6 +204,38 @@ To run using SLURM interactively, you can use the srun command to allocate a com
 srun --time=08:00:00 --mem=128G --cpus-per-task=16 --pty bash
 ```
 
+## Troubleshooting SLURM jobs
+
+Use `sacct -j <JOBID>` to troubleshoot jobs
+
+```bash
+$ sacct -j 45137055 --format=JobID,JobName,State,ExitCode,Elapsed,MaxRSS,NodeList
+
+JobID           JobName      State ExitCode    Elapsed     MaxRSS        NodeList 
+------------ ---------- ---------- -------- ---------- ---------- --------------- 
+45137055     nf-SANGER+ CANCELLED+      0:0   00:13:38                 cn509-21-l 
+45137055.ba+      batch     FAILED     15:0   00:13:41  53638548K      cn509-21-l 
+45137055.ex+     extern  COMPLETED      0:0   00:13:41      1192K      cn509-21-l 
+```
+
+What this means: 
+
+**What this means:**  
+
+- **Parent job (`nf-SANGER+`)**: `CANCELLED+`  
+  - The `+` beside `CANCELLED` indicates it had child steps. The `+` beside the JobName indicates the job name is longer than can be displayed in the column.
+  - Elapsed time (00:13:38) is slightly less than the batch step because the parent is marked finished when SLURM sends the termination signal, not when all steps fully exit.  
+
+- **Batch step (`45137055.ba`)**: `FAILED`, ExitCode `15:0`  
+  - ExitCode format: `<program exit code>:<signal>`  
+  - `15:0` → The job was killed by signal **15 (SIGTERM)**, program itself exited with code 0.  
+  - MaxRSS = 53.6 GB, showing the memory used by the batch step.  
+
+- **Extern step (`45137055.ex`)**: `COMPLETED`, ExitCode `0:0`  
+  - Runs after batch step finishes, usually handles output staging.  
+  - ExitCode `0:0` → completed successfully, no signals.  
+  - Only used ~1 MB memory.  
+
 ## Backing up your code-server extensions
 
 This repository contains all the files for the extensions I downloaded for use on code-server on the KAUST IBEX https://github.com/mpampuch/ibex-code-server-extensions-backup.
