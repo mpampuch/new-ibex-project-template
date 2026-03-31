@@ -13,8 +13,9 @@ for arg in "$@"; do
 done
 
 # Load required modules
-module load nextflow/25.04.2
-module load singularity/3.9.7
+module load nextflow/25.10.4
+module load nf-core/tools/3.5.2
+module load tower-cli/0.21.0
 module load github-cli/2.46/binary
 
 # Configure your environment variables
