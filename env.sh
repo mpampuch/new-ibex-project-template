@@ -2,9 +2,13 @@
 
 # Parse flags manually (robust for sourced scripts)
 SKIP_INIT=false
+SKIP_PUSH=false
 for arg in "$@"; do
   if [[ "$arg" == "-e" ]]; then
     SKIP_INIT=true
+  fi
+  if [[ "$arg" == "-p" ]]; then
+    SKIP_PUSH=true
   fi
 done
 
@@ -60,20 +64,24 @@ if [ "$SKIP_INIT" = false ]; then
   nextflow -log "$OUTDIR/nextflow.log" run . -profile singularity,test --outdir $OUTDIR && echo "Nextflow pipeline ran successfully. Pipeline boilerplate generation worked and is ready for modification"
 
   # Push to GitHub
-  # Get Authentication
-  echo "Creating a git repository at $ORG_NAME/$REPO_NAME"
-  source ~/.secrets/github.sh # Loads the GITHUB_TOKEN
-  ORG_NAME="mpampuch-bioinformatics-pipelines"
-  REPO_NAME=$(basename "$(pwd)")
-  gh repo create "$ORG_NAME/$REPO_NAME" --public --source=. --remote=origin
-  echo "Remote endpoints set to:" ; git remote -v
-  # Make the remote ssh
-  echo "Modifying the remote endpoints to be ssh endpoints (recommended for HPC workflows)"
-  git remote set-url origin git@github.com:$ORG_NAME/$REPO_NAME.git # For personal projects use: git remote set-url origin git@github.com:$(gh api user --jq .login)/$REPO_NAME.git
-  echo "New remote endpoints set to:" ; git remote -v
-  git push -u origin master
-  unset GITHUB_TOKEN # Remove the GITHUB token from your environmental variables
-
+  # Push to GitHub (optional)
+  if [ "$SKIP_PUSH" = false ]; then
+	  # Get Authentication
+	  echo "Creating a git repository at $ORG_NAME/$REPO_NAME"
+	  source ~/.secrets/github.sh # Loads the GITHUB_TOKEN
+	  ORG_NAME="mpampuch-bioinformatics-pipelines"
+	  REPO_NAME=$(basename "$(pwd)")
+	  gh repo create "$ORG_NAME/$REPO_NAME" --public --source=. --remote=origin
+	  echo "Remote endpoints set to:" ; git remote -v
+	  # Make the remote ssh
+	  echo "Modifying the remote endpoints to be ssh endpoints (recommended for HPC workflows)"
+	  git remote set-url origin git@github.com:$ORG_NAME/$REPO_NAME.git # For personal projects use: git remote set-url origin git@github.com:$(gh api user --jq .login)/$REPO_NAME.git
+	  echo "New remote endpoints set to:" ; git remote -v
+	  git push -u origin master
+	  unset GITHUB_TOKEN # Remove the GITHUB token from your environmental variables
   else
+    echo "Skipping GitHub push (flag -p passed)."
+  fi
+else
   echo "Skipping nf-core and nf-test initialization (flag -e passed)."
 fi
