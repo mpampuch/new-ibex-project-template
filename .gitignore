@@ -55,6 +55,9 @@
 .nextflow.checksum
 .nextflow.schema.json
 
+# lineage folder
+.lineage/
+
 # Work directories
 work/
 WORK/
