@@ -42,11 +42,24 @@ module load nextflow/25.10.4
 module load singularity/3.9.7
 module load tower-cli/0.15.0
 
-# Configure Nextflow environment
-export NXF_OPTS='-Xms3G -Xmx5G' # Allocate Java VM Heap memory range (for main process)
+# Configure Nextflow environment (using a pre-run script)
+cat > pre-run.sh <<'EOF'
+#!/usr/bin/env bash
+
+export NXF_VER='25.10.4'
+export NXF_OPTS='-Xms3G -Xmx5G'
 export NXF_SINGULARITY_CACHEDIR=/ibex/scratch/projects/c2303/NXF_SINGULARITY_CACHEDIR
 export NXF_APPTAINER_CACHEDIR=/ibex/scratch/projects/c2303/NXF_APPTAINER_CACHEDIR
 export NXF_WORK=/ibex/scratch/projects/c2303/work
+
+echo "==================== PRE-RUN SCRIPT OUTPUTS ===================="
+echo "NXF_VER=$NXF_VER"
+echo "NXF_OPTS=$NXF_OPTS"
+echo "NXF_SINGULARITY_CACHEDIR=$NXF_SINGULARITY_CACHEDIR"
+echo "NXF_APPTAINER_CACHEDIR=$NXF_APPTAINER_CACHEDIR"
+echo "NXF_WORK=$NXF_WORK"
+echo "================================================================"
+EOF
 
 # Activate your environment for your job (if necessary)
 # source env.sh
