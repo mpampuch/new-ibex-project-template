@@ -38,7 +38,7 @@ PIPELINE_NAME_OR_URL="RNAseq"
 ################################################################################
 
 # Load modules
-module load nextflow/25.04.2
+module load nextflow/25.10.4
 module load singularity/3.9.7
 module load tower-cli/0.15.0
 
