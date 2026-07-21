@@ -145,6 +145,8 @@ cat << EOF >> "$CONFIG_FILE_RUN_SPECIFIC"
 params.input = "$INPUT_FILE"
 params.outdir = "$NXF_OUTPUT_DIR_RUN_SPECIFIC"
 
+outputDir = params.outdir // TO FIX BACKWARDS COMPATIBILITY ISSUES BETWEEN OUTPUT DIRECTIVE AND publishDir DIRECTIVE. REMOVE IF CAUSES ISSUES
+
 // process {
 //   withName: '.*MULTIQC.*' {
 //       ext.args = '--max-size 100g'
