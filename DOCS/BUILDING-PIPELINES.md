@@ -14,7 +14,13 @@
 
 5. Update `assets/schema_input.json`
 
-6. Update your test profile `conf/test.config`
+`nextflow.schema.json` can also be edited using
+
+```bash
+nf-core pipelines schema build
+```
+
+7. Update your test profile `conf/test.config`
 
 ```
 input = "${projectDir}/samplesheet.test.csv"
