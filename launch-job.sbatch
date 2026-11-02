@@ -11,7 +11,7 @@
 #SBATCH --job-name=YOUR_JOB_NAME            # Set your job name
 
 # Load modules
-module load nextflow/25.04.2
+module load nextflow
 module load singularity/3.9.7
 
 # Configure up environment variables
