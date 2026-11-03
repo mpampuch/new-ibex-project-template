@@ -1,0 +1,13 @@
+work/
+.nextflow/
+.nextflow.log*
+.nf-test/
+results/
+output/
+.env
+.env.*
+!.env.example
+__pycache__/
+.pytest_cache/
+.venv/
+.DS_Store

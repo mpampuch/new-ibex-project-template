@@ -374,6 +374,43 @@ I've also configured my ibex environment to take the alias `ibex2dw` for this pu
 ibex2dw 20241118_P41U1_KSAlib-rapid-barcode
 ```
 
+## AI Agent Instructions & Nextflow Pipelines
+
+This repository is configured as the central template for AI-assisted development across all new projects, especially for **Nextflow DSL2 pipelines** following nf-core standards with Test-Driven Development (TDD).
+
+### Agent Configuration Files
+
+- **`AGENTS.md`**: Baseline scientific integrity, Slurm/HPC safety, and operational rules loaded by AI coding agents.
+- **`CLAUDE.md` / `GEMINI.md`**: Agent-specific adapters pointing to the shared baseline and playbooks.
+- **`PROJECT.md`**: Project profile declaring scientific contract, pipeline parameters, input schemas, and execution requirements.
+- **`instructions/`**: Specialized playbooks:
+  - `instructions/nf-core-pipeline-building.md`: Comprehensive playbook for nf-core-style pipelines, TDD, Wave CLI container management, and MultiQC reporting.
+  - `instructions/nextflow.md`: Core Nextflow architecture, channel invariants, and testing patterns.
+  - `instructions/hpc.md`: Slurm safety, partition/QOS conventions, and resource alignment on IBEX.
+  - `instructions/scientific-writing.md`: Guidelines for reports, papers, and `writing/STYLE.md`.
+
+### Nextflow Pipeline Scaffolding Included
+
+- **Launchers**:
+  - `launch-job.sbatch`: Production Nextflow runner on IBEX with timestamped outputs, run reconstruction metadata, and scratch caching (`singularity,kaust`).
+  - `launch-test.sbatch`: Slurm launcher for running full-pipeline tests (`singularity,test`).
+  - `bin/launch-generic-job.sbatch`: Slurm launcher for non-Nextflow batch jobs.
+- **Testing (`nf-test`)**:
+  - `nf-test.config`: Configured with `DebugUtils.groovy` library support and test profiles.
+  - `tests/lib/DebugUtils.groovy`: Utility for inspecting emitted channels (`DebugUtils.printTree(process.out)`).
+  - `conf/test.config`: Pinned test profile pointing to minimal test samplesheets.
+- **Atomic Modules & Subworkflows**:
+  - `modules/local/example_module/`: nf-core-style local module template (`main.nf`, `meta.yml`, `example_module.nf.test`, `TESTDATA/`).
+  - `subworkflows/local/example_subworkflow/`: Subworkflow combining modules with workflow tests.
+
+### Key Rules Enforced for Agents
+
+1. **Containers**: Always ask the user to supply a container first. If declined, offer to build a custom Docker container using the [Wave CLI](https://docs.seqera.io/wave/cli/) (ideal for `linux/amd64` builds on remote clusters from local `arm64` dev machines).
+2. **Process structure**: Module `main.nf` files must start directly with the `process` block. Helper functions must not be defined above the process.
+3. **No HEREDOCS**: Multi-line HEREDOCS (e.g. `python3 - <<'PY' ... PY`) inside process script blocks are discouraged; use standalone scripts in `bin/` or dedicated processes.
+4. **HPC safety**: Never submit production jobs, large arrays, or alter shared scratch without explicit confirmation.
+5. **Validation**: Run `./scripts/validate-project.sh .` to check project structure and required agent configuration files.
+
 ## Getting data off the datawaha drive and into the IBEX
 
 [This](https://anperc.kaust.edu.sa/resources/laboratory_resources/datawaha-data-storage) is a good resource for doing this. But just breifly

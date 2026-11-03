@@ -1,0 +1,26 @@
+// subworkflows/local/example_subworkflow/example_subworkflow.workflow.nf.test
+// TDD test for the subworkflow wiring. Keep it small and fast.
+
+nextflow_workflow {
+
+    name "Test Subworkflow EXAMPLE_SUBWORKFLOW"
+    script "subworkflows/local/example_subworkflow/example_subworkflow.nf"
+    tag "subworkflows"
+    tag "subworkflows_local"
+
+    test("EXAMPLE_SUBWORKFLOW | single sample") {
+        tag "fast"
+        options "-dump-hashes"
+        when {
+            workflow {
+                inputs ch_input = [ [ id: 'EXAMPLE_SAMPLE' ],
+                    file("${projectDir}/modules/local/example_module/TESTDATA/EXAMPLE_SAMPLE.fasta") ]
+            }
+        }
+        then {
+            DebugUtils.printTree(workflow.report)
+
+            assert snapshot(workflow).match()
+        }
+    }
+}

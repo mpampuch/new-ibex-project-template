@@ -1,0 +1,9 @@
+name: "example_subworkflow"
+description: "Template nf-core subworkflow combining local modules (EXAMPLE_SUBWORKFLOW)."
+keywords:
+  - example
+  - template
+authors:
+  - "<your name or handle>"
+maintainers:
+  - "<your name or handle>"

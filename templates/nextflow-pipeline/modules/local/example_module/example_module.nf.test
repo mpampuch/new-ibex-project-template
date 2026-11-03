@@ -1,0 +1,89 @@
+// modules/local/example_module/example_module.nf.test
+// TDD test for EXAMPLE_MODULE. Model on the algae-taxa repo module tests.
+// ALWAYS run on a SMALL subset: inspect first (§7), cap it, record the cap in
+// TESTDATA/README.md. Use DebugUtils.printTree first in every `then`.
+
+nextflow_process {
+
+    name "Test Process EXAMPLE_MODULE"
+    script "modules/local/example_module/example_module.nf"
+    process "EXAMPLE_MODULE"
+    tag "modules"
+    tag "modules_local"
+
+    // =========================================================================
+    // REAL TEST — smallest input that still exercises the tool.
+    // =========================================================================
+    test("EXAMPLE_MODULE | single sample") {
+        tag "fast"
+        options "-dump-hashes"
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'EXAMPLE_SAMPLE' ],
+                    file("${projectDir}/modules/local/example_module/TESTDATA/EXAMPLE_SAMPLE.fasta")
+                ]
+                """
+            }
+        }
+        then {
+            DebugUtils.printTree(process.out)
+
+            assert process.success
+
+            // shape
+            assert process.out.report.size() == 1
+            def (meta, report) = process.out.report[0]
+
+            // sample identity is preserved
+            assert meta.id == 'EXAMPLE_SAMPLE'
+
+            // output naming (${prefix}.log)
+            assert path(report).name == 'EXAMPLE_SAMPLE.log'
+
+            // content / semantic checks (extend these; prefer behaviour over
+            // "file exists only")
+            // assert path(report).readLines().any { it.contains('...expected...') }
+
+            // versions.yml present + tagged with the module
+            assert process.out.versions.size() == 1
+            assert path(process.out.versions[0]).text.contains('EXAMPLE_MODULE')
+
+            assert snapshot(process.out).match()
+        }
+    }
+
+    // =========================================================================
+    // STUB TEST — verify wiring without running the real tool.
+    // =========================================================================
+    test("stub | EXAMPLE_MODULE | single sample") {
+        tag "stub"
+        tag "fast"
+        options "-stub-run -dump-hashes"
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'EXAMPLE_SAMPLE' ],
+                    file("${projectDir}/modules/local/example_module/TESTDATA/EXAMPLE_SAMPLE.fasta")
+                ]
+                """
+            }
+        }
+        then {
+            DebugUtils.printTree(process.out)
+
+            assert process.success
+
+            // stub touches outputs: present but empty
+            assert process.out.report.size() == 1
+            assert file(process.out.report[0][1]).name == 'EXAMPLE_SAMPLE.log'
+            assert file(process.out.report[0][1]).size() == 0
+
+            assert process.out.versions.size() == 1
+
+            assert snapshot(process.out).match()
+        }
+    }
+}

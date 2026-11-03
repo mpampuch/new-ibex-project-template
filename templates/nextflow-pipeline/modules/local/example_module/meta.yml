@@ -1,0 +1,13 @@
+name: "example_module"
+description: "Template nf-core local module for one bioinformatics tool (EXAMPLE_MODULE)."
+keywords:
+  - example
+  - template
+authors:
+  - "<your name or handle>"
+maintainers:
+  - "<your name or handle>"
+software:
+  tool:
+    version: "<pinned version>"
+    description: "one-line description of the tool"
