@@ -400,7 +400,7 @@ When the pipeline no longer needs that scaffolding, run `./agent-resources/unins
 
 ### Key Rules Enforced for Agents
 
-1. **Containers**: Always ask the user to supply a container first. If declined, offer to build a custom Docker container using the [Wave CLI](https://docs.seqera.io/wave/cli/) (ideal for `linux/amd64` builds on remote clusters from local `arm64` dev machines).
+1. **Containers**: Always ask the user to supply a container first. If declined, offer to build a custom Docker container using the [Wave CLI](https://docs.seqera.io/wave/cli/) (ideal for `linux/amd64` builds on remote clusters from local `arm64` dev machines). Freeze Singularity images from that Docker image (`wave -i … --singularity`); on IBEX, pull them with Apptainer 1.4.5 (`mamba activate apptainer`), not SingularityCE 3.9.7. Details are in `agent-resources/instructions/nf-core-pipeline-building.md` §3.
 2. **Process structure**: Module `main.nf` files must start directly with the `process` block. Helper functions must not be defined above the process.
 3. **No HEREDOCS**: Multi-line HEREDOCS (e.g. `python3 - <<'PY' ... PY`) inside process script blocks are discouraged; use standalone scripts in `bin/` or dedicated processes.
 4. **HPC safety**: Never submit production jobs, large arrays, or alter shared scratch without explicit confirmation.

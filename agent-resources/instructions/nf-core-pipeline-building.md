@@ -23,11 +23,15 @@ detecting, and confirm before acting:
 | Modules | `module load nextflow`, `module load singularity`, `module load tower-cli` available | `docker` on `PATH`, no IBEX modules |
 | Profile (runs) | `-profile singularity,kaust` | `-profile docker` |
 | Profile (tests) | `-profile singularity,test` | `-profile docker,test` |
-| Executor | `singularity` (apptainer is the v4 equivalent) | `docker` |
+| Executor | `singularity` via Apptainer 1.4.5 (`mamba activate apptainer`; §3) | `docker` |
 | Launch mechanism | `sbatch launch-job.sbatch` / `sbatch launch-test.sbatch` | `nextflow run ...` directly |
 
-- **The `kaust` institutional profile points Singularity/apptainer at IBEX
+- **The `kaust` institutional profile points Singularity/Apptainer at IBEX
   modules and scratch.** It is IBEX-only; do not use it locally.
+- **Container engine on IBEX:** `module load singularity` is SingularityCE
+  3.9.7. Launch scripts must then `mamba activate apptainer` so `singularity`
+  on `PATH` is Apptainer 1.4.5. SingularityCE 3.9.7 cannot pull Wave ORAS SIF
+  images (§3).
 - If the signals are ambiguous, **do not guess** — ask.
 - Confirm the environment with the user *before* any submission or run.
 
@@ -90,6 +94,7 @@ export NXF_WORK=<SCRATCH>/work
   - Pipeline integration: https://docs.seqera.io/multiqc/usage/pipelines
   - AI summaries: https://docs.seqera.io/multiqc/ai/
 - Wave CLI: https://docs.seqera.io/wave/cli/
+  - Use cases (Docker file vs image-to-Singularity): https://docs.seqera.io/wave/cli/use-cases
 
 When unsure about a feature, look it up here. **Do not fabricate** command
 output, test results, or version strings.
@@ -127,35 +132,126 @@ scientific-integrity or safety rules in `../AGENTS.md`.
 When a module needs a bioinformatics tool:
 1. **Ask the user to supply a container first.**
 2. **If the user says no, ask if they would like to build a custom Docker container.**
-3. **If you are building custom containers, follow the instructions at [Wave CLI](https://docs.seqera.io/wave/cli/).**
-   - Wave CLI is especially good for Docker `linux/amd64` builds.
-   - The local dev environment will often be `arm64` (e.g. macOS Apple Silicon), so Wave helps a lot by executing `linux/amd64` builds remotely without local emulation overhead.
-   - Example of the Wave CLI tool being used locally:
-     ```bash
-     #!/usr/bin/env bash
-     # Frozen image from this Dockerfile:
-     # mpampuch/kmerord_aa22b13_linux-amd64:1ea525ba3f53ce0c
-     # Build ID bd-1ea525ba3f53ce0c_1, linux/amd64, 2026-10-28.
-     set -euo pipefail
-     cd "$(dirname "$0")"
-     set -a
-     source "${HOME}/.secrets/seqera-platform.sh"
-     set +a
-     wave -f Dockerfile \
-       --platform linux/amd64 \
-       --freeze \
-       --build-repo mpampuch/kmerord_aa22b13_linux-amd64 \
-       --await 90m \
-       --log-level DEBUG
-     ```
+3. **If you are building custom containers, follow this section and [Wave CLI](https://docs.seqera.io/wave/cli/).**
+   - Wave is especially good for Docker `linux/amd64` builds. A local dev machine is often `arm64` (macOS Apple Silicon); Wave runs the `linux/amd64` build remotely, without local emulation.
+   - On IBEX, `wave` comes from `module load tower-cli`. There is no separate Wave module. `tower-cli` is optional for a plain Nextflow run (it pairs with `TOWER_*` for Seqera Platform). It is required to build images.
+   - Source Seqera credentials from `${HOME}/.secrets/seqera-platform.sh`. Do not commit that file, and do not print the token.
+
+### 3.1 Build a Docker image
+
+`wave -f` reads a Dockerfile. `--freeze` publishes an immutable tag. Example (linux/amd64, 2026-11-03):
+
+```bash
+#!/usr/bin/env bash
+# Frozen image from this Dockerfile:
+# mpampuch/smudgeplot_v0.5.4_linux-amd64:bb0188a7f15fe8e9
+# Build ID bd-bb0188a7f15fe8e9_1, linux/amd64, 2026-10-29.
+set -euo pipefail
+cd "$(dirname "$0")"
+set -a
+source "${HOME}/.secrets/seqera-platform.sh"
+set +a
+wave -f Dockerfile \
+  --platform linux/amd64 \
+  --freeze \
+  --build-repo mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test \
+  --await 90m \
+  --log-level DEBUG
+```
+
+A successful build ends with the frozen image name, for example:
+
+```text
+mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test:7205eba8ecbe26c7
+```
+
+The DEBUG log also reports `buildId` (here `bd-7205eba8ecbe26c7_1`) when `status` is `DONE` and `succeeded` is true. Pull or run the image with:
+
+```bash
+docker run mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test:7205eba8ecbe26c7
+```
+
+Record that tag. Never commit a floating `:latest`.
+
+### 3.2 Build a Singularity image from the Docker image
+
+Build the SIF from the frozen Docker image. Do not pass the Dockerfile to `wave -f` for this step. Wave parses `-f` as a Singularity definition, so a Dockerfile is rejected (`invalid header keyword: from`). See [Wave CLI use cases](https://docs.seqera.io/wave/cli/use-cases).
+
+```bash
+#!/usr/bin/env bash
+# Singularity freeze of the Docker image. Wave parses -f as a Singularity
+# definition, so the Dockerfile is rejected (invalid header keyword: from).
+# https://docs.seqera.io/wave/cli/use-cases
+# oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif:9674543663c3d774
+# Build ID bd-9674543663c3d774_1, linux/amd64, 2026-10-29.
+set -euo pipefail
+cd "$(dirname "$0")"
+set -a
+source "${HOME}/.secrets/seqera-platform.sh"
+set +a
+wave -i mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test:7205eba8ecbe26c7 \
+  --singularity \
+  --platform linux/amd64 \
+  --freeze \
+  --build-repo mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test \
+  --await 90m \
+  --log-level DEBUG
+```
+
+Success prints an ORAS reference without a registry host, for example:
+
+```text
+oras://mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba
+```
+
+Prefix `docker.io` before use:
+
+```text
+oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba
+```
+
+### 3.3 Pulling Wave ORAS images on IBEX
+
+`module load singularity` (SingularityCE can also be loaded with `module load tower-cli`) provides **SingularityCE 3.9.7**. That client cannot pull these Wave SIFs. Observed 2026-11-03:
+
+```text
+$ singularity --version
+singularity-ce version 3.9.7
+$ singularity shell oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba
+FATAL:   Unable to handle oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba uri: failed to get checksum for oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba: could not get image manifest, received mediaType: application/vnd.docker.distribution.manifest.v2+json
+```
+
+Wave publishes the SIF to Docker Hub as an ORAS artifact, not as a conventional Docker image. Docker Hub returns the Docker schema 2 manifest media type `application/vnd.docker.distribution.manifest.v2+json`. An OCI artifact manifest is generally `application/vnd.oci.image.manifest.v1+json`. SingularityCE 3.9.7 rejects the Docker media type on the `oras://` path.
+
+Apptainer 1.4.5 accepts the same reference. It chooses the image format from the transport: `docker://` is a container image, `oras://` is an artifact such as a SIF (Apptainer issue #2178). Observed 2026-11-03, after `mamba activate apptainer`:
+
+```text
+$ apptainer shell oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba
+INFO:    Downloading oras image
+...
+Singularity> smudgeplot
+usage:
+            smudgeplot <task> [options]
+...
+```
+
+Load it on IBEX with:
+
+```bash
+eval "$(mamba shell hook --shell bash)"
+mamba activate apptainer
+```
+
+That environment replaces `singularity` on `PATH`. Afterwards `singularity --version` reports `apptainer version 1.4.5`, and `singularity shell oras://docker.io/<repo>:<tag>` downloads the SIF. Because `-profile singularity` invokes whichever `singularity` is on `PATH`, every IBEX launcher must run those two lines after the module loads: `launch-job.sbatch`, `launch-test.sbatch`, and the `pre-run.sh` that `launch-seqera-platform.sh` hands to Tower. The outer Slurm script's environment does not carry into the Tower compute job; `pre-run.sh` does.
+
+### 3.4 References in the pipeline
 
 - Expected forms of container references:
   - **Registry image** — `container 'ghcr.io/owner/tool:tag'` (or Docker Hub / Quay image) in the module's `main.nf` (and/or `meta.yml`).
   - **Wave package** — a `wave://…` / `@wave` reference wired in `modules.config` (e.g. `processes { FOO { container = ... } }` plus the Wave `@wave` line).
-  - If an `oras://` reference is ever provided, note that it bypasses `NXF_SINGULARITY_CACHEDIR` caching and tell the user.
+  - **Wave ORAS SIF** — `oras://docker.io/<owner>/<repo>:<freeze-tag>`. An `oras://` reference bypasses `NXF_SINGULARITY_CACHEDIR` caching; tell the user when one is used.
 - **Pin the version/tag.** Record the frozen digest or tag; never use a floating `:latest` in source.
 - Keep a small **"software → container"** manifest (a note or `modules.config` block) so a run is reproducible and the user can audit which images were used.
-- The runner, container engine, and Seqera Tower CLI on IBEX come from `module load nextflow`, `module load singularity`, `module load tower-cli`. `tower-cli` is optional for a plain run; it pairs with the `TOWER_*` environment variables for submitting/tracking to Seqera Platform.
 - Do **not** install or build tooling directly on host environments to satisfy a module. If a needed binary is absent, ask the user or containerize via Wave.
 
 ## 4. Build order (TDD)
@@ -479,7 +575,11 @@ touch:
 
 Use the templates in `../templates/nextflow-pipeline/`. Both launchers:
 - `module load nextflow` (confirm `>= 25.10`; recommend newest stable),
-  `module load singularity`, `module load tower-cli`;
+  `module load singularity`, `module load tower-cli` (`tower-cli` provides
+  `wave`; §3);
+- then activate Apptainer so `singularity` is 1.4.5 (§3.3). `module load
+  singularity` alone is SingularityCE 3.9.7 and cannot pull Wave ORAS SIFs.
+  The job-launcher snippet below includes the `mamba` lines;
 - set `NXF_OPTS`, the `*_CACHEDIR` and `NXF_WORK` vars to IBEX scratch (ask for
   the project path);
 - copy the input, the config, and the launch script into a **timestamped output
@@ -493,8 +593,11 @@ Use the templates in `../templates/nextflow-pipeline/`. Both launchers:
 #SBATCH --cpus-per-task=1 --ntasks=1 --mem=5G    # match the job
 ...
 module load nextflow             # ASK for exact version (>= 25.10)
-module load singularity
-module load tower-cli
+module load singularity          # SingularityCE 3.9.7; replaced on PATH below
+module load tower-cli            # provides wave (§3); optional for a plain run
+# Apptainer 1.4.5 replaces SingularityCE on PATH so Wave ORAS SIFs pull (§3.3).
+eval "$(mamba shell hook --shell bash)"
+mamba activate apptainer
 export NXF_OPTS='-Xms3G -Xmx5G'
 export NXF_SINGULARITY_CACHEDIR=<SCRATCH>/NXF_SINGULARITY_CACHEDIR   # ASK
 export NXF_WORK=<SCRATCH>/work                                         # ASK
@@ -510,7 +613,7 @@ nextflow -log "$NXF_LOG_FILE" run . -c "$CONFIG_FILE" -with-report \
 **`launch-test.sbatch`** — full-pipeline tests:
 ```bash
 #SBATCH --job-name=TEST-PIPELINE
-# (same module load + NXF_* as the job launcher; smaller --time, e.g. 00:30:00)
+# (same module load, Apptainer activation, and NXF_* as the job launcher; smaller --time, e.g. 00:30:00)
 NXF_OUTPUT_DIR="TESTS/TEST_OUTPUTS/$(date -Iseconds | sed 's/-//g; s/://g; s/T/_/; s/+.*//')"
 ...
 nextflow -log "$NXF_LOG_FILE" run . -c "$CONFIG_FILE" -with-report \

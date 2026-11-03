@@ -42,9 +42,21 @@ module load nextflow/25.10.4
 module load singularity/3.9.7
 module load tower-cli/0.15.0
 
+# Apptainer 1.4.5 replaces SingularityCE 3.9.7 on PATH so Wave ORAS SIFs pull.
+# The Tower compute job does not inherit this shell; pre-run.sh activates it too.
+# See agent-resources/instructions/nf-core-pipeline-building.md §3.
+eval "$(mamba shell hook --shell bash)"
+mamba activate apptainer
+
 # Configure Nextflow environment (using a pre-run script)
 cat > pre-run.sh <<'EOF'
 #!/usr/bin/env bash
+
+# Apptainer 1.4.5 replaces SingularityCE 3.9.7 on PATH so Wave ORAS SIFs pull.
+# Tower starts Nextflow from this script, not from the outer Slurm environment.
+# See agent-resources/instructions/nf-core-pipeline-building.md §3.
+eval "$(mamba shell hook --shell bash)"
+mamba activate apptainer
 
 export NXF_VER='25.10.4'
 export NXF_OPTS='-Xms3G -Xmx5G'

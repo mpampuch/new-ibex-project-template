@@ -29,8 +29,13 @@
 
 # Load the IBEX toolchain (ASK the user for exact module versions):
 module load nextflow                       # ASK exact version: >= 25.10 (recommend newest stable, e.g. 26.04.x)
-module load singularity                    # container engine (apptainer is v4)
-module load tower-cli                      # Seqera Platform CLI (optional for a plain run)
+module load singularity                    # SingularityCE; replaced on PATH by Apptainer below
+module load tower-cli                      # Seqera Platform CLI; also provides wave (optional for a plain run)
+
+# Apptainer 1.4.5 replaces SingularityCE 3.9.7 on PATH so Wave ORAS SIFs pull.
+# See agent-resources/instructions/nf-core-pipeline-building.md §3.
+eval "$(mamba shell hook --shell bash)"
+mamba activate apptainer
 
 # Runtime / cache locations -> shared IBEX scratch (ASK the user for <SCRATCH>):
 export NXF_OPTS='-Xms3G -Xmx5G'

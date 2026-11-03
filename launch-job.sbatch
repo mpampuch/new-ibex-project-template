@@ -14,6 +14,11 @@
 module load nextflow
 module load singularity/3.9.7
 
+# Apptainer 1.4.5 replaces SingularityCE 3.9.7 on PATH so Wave ORAS SIFs pull.
+# See agent-resources/instructions/nf-core-pipeline-building.md §3.
+eval "$(mamba shell hook --shell bash)"
+mamba activate apptainer
+
 # Configure up environment variables
 export NXF_OPTS='-Xms3G -Xmx5G' # Allocate Java VM Heap memory range (for main process)
 export NXF_SINGULARITY_CACHEDIR=/ibex/scratch/projects/c2303/NXF_SINGULARITY_CACHEDIR 

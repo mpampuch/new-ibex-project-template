@@ -20,8 +20,10 @@ first: [`../../instructions/nf-core-pipeline-building.md`](../../instructions/nf
 ## Rules the templates encode
 - **Container provision:** Ask the user to supply a container first. If the user
   says no, ask if they want to build a custom Docker container (prefer Wave CLI
-  for `linux/amd64` builds) and pin the version (`§3` of the playbook). The
-  module `container:` line is a `<ASK_USER>` placeholder on purpose.
+  for `linux/amd64` builds) and pin the version (`§3` of the playbook).
+  Singularity images are frozen from that Docker image; IBEX launchers activate
+  Apptainer 1.4.5 so Wave ORAS SIFs pull (`§3`). The module `container:` line
+  is a `<ASK_USER>` placeholder on purpose.
 - **TDD:** real + stub `.nf.test` variants, `DebugUtils.printTree` first, semantic
   asserts + `snapshot().match()`, `tags` `fast`/`slow`/`stub` (`§5`).
 - **Bioinformatics data is large:** inspect with format-appropriate tools
