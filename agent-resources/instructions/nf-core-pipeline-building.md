@@ -388,8 +388,15 @@ Conventions:
   (`${prefix}.ext`), versions.yml tags, and (where meaningful) content/headers.
   Use `snapshot(process.out).match()` for the output contract; keep snapshots
   under version control.
-- Tag tests: `fast` (run often; small), `slow` (real big data), `stub`
-  (`-stub-run`). Selective runs: `nf-test test <file> --tags fast`.
+- Tag tests deliberately so a subset can be selected without reading every
+  file: `fast` (run often; small), `slow` (real big data), `stub`
+  (`-stub-run`), `pipeline` (end-to-end), plus module- or process-specific
+  tags when a change should be isolatable. On a large project the full suite
+  is slow. While iterating, do not run every nf-test by default — run only
+  what the change needs, for example `nf-test test <file> --tags fast` or
+  `nf-test test modules/local/<module> --tags <tag>`. Save a full
+  `nf-test test` for when the pipeline is ready for a full test (readiness or
+  pre-merge), not for day-to-day module work.
 - Include **failure / edge tests**: malformed or missing inputs, empty inputs,
   unexpected input cardinality.
 - Preserve sample identity: assertions must confirm `meta.id` propagation and

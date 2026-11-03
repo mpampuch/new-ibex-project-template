@@ -27,7 +27,7 @@ Never invent a red/green result. If dependencies, cluster access, or fixtures ar
 - Do not introduce abstractions that obscure a simple workflow.
 
 ## Testing
-Use `nf-test` when suitable and respect the project's pinned version. Add tests at appropriate levels:
+Use `nf-test` when suitable and respect the project's pinned version. On large projects a full suite is slow: tag tests so subsets are selectable, and until a full run is warranted prefer path-scoped or `--tags` runs (`nf-test test <path> --tags …`) over `nf-test test` with no filter. Add tests at appropriate levels:
 - Process/module tests for transformation and tool behavior.
 - Workflow/pipeline tests for channel wiring and output contracts.
 - Configuration/parameter tests for important supported modes.
