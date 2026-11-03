@@ -26,4 +26,4 @@
 - Is job submission allowed without approval? Default: NO.
 
 ## Definition of done
-See `instructions/nextflow.md`. Update this profile when scientific behavior or supported inputs change.
+See `agent-resources/instructions/nextflow.md`. Update this profile when scientific behavior or supported inputs change. After `./agent-resources/uninstall.sh`, replace this line with a project-local note.

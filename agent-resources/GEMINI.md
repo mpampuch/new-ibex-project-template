@@ -1,0 +1,11 @@
+# Gemini / Antigravity Project Guidance
+
+Playbook paths below are relative to this directory (`agent-resources/`).
+
+Read `AGENTS.md` and the repository's `../PROJECT.md` before work. Apply the relevant specialized playbook:
+- `instructions/nf-core-pipeline-building.md` (building nf-core-style Nextflow pipelines with TDD, on IBEX or locally)
+- `instructions/nextflow.md`
+- `instructions/hpc.md`
+- `instructions/scientific-writing.md`
+
+If this harness does not automatically load referenced files, open them explicitly or include their contents in the task context. Do not claim validation was performed unless commands were executed and results observed. Obtain approval before expensive Slurm submissions or destructive data operations.

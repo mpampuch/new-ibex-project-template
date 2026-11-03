@@ -1,7 +1,7 @@
 // modules/local/example_module/example_module.nf
 // Template for ONE nf-core local module. Rename folder + process to your tool.
 // Ask user for container first; if none, ask to build custom Docker container
-// (via Wave CLI, §3 of instructions/nf-core-pipeline-building.md). Pin version.
+// (via Wave CLI, §3 of agent-resources/instructions/nf-core-pipeline-building.md). Pin version.
 // Module files must start directly with the process block (never define helper functions above it).
 // Avoid embedding multi-line HEREDOCS (e.g. python3 - <<'PY') inside the script block; use bin/ scripts.
 
