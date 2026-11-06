@@ -144,31 +144,34 @@ When a module needs a bioinformatics tool:
 ```bash
 #!/usr/bin/env bash
 # Frozen image from this Dockerfile:
-# mpampuch/smudgeplot_v0.5.4_linux-amd64:bb0188a7f15fe8e9
-# Build ID bd-bb0188a7f15fe8e9_1, linux/amd64, 2026-10-29.
+# mpampuch/kmerord_ca6126d_linux-amd64:1370912b6f11bb2a
+# Build ID bd-1370912b6f11bb2a_1, linux/amd64, 2026-11-05.
 set -euo pipefail
 cd "$(dirname "$0")"
 set -a
 source "${HOME}/.secrets/seqera-platform.sh"
 set +a
+commit="$(git rev-parse --short=7 HEAD)"
 wave -f Dockerfile \
   --platform linux/amd64 \
   --freeze \
-  --build-repo mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test \
+  --build-repo "mpampuch/kmerord_${commit}_linux-amd64" \
+  --output json \
   --await 90m \
   --log-level DEBUG
+
 ```
 
 A successful build ends with the frozen image name, for example:
 
 ```text
-mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test:7205eba8ecbe26c7
+mpampuch/kmerord_ca6126d_docker_linux-amd64:1370912b6f11bb2a
 ```
 
 The DEBUG log also reports `buildId` (here `bd-7205eba8ecbe26c7_1`) when `status` is `DONE` and `succeeded` is true. Pull or run the image with:
 
 ```bash
-docker run mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test:7205eba8ecbe26c7
+docker run mpampuch/kmerord_ca6126d_linux-amd64:1370912b6f11bb2a
 ```
 
 Record that tag. Never commit a floating `:latest`.
@@ -182,18 +185,19 @@ Build the SIF from the frozen Docker image. Do not pass the Dockerfile to `wave 
 # Singularity freeze of the Docker image. Wave parses -f as a Singularity
 # definition, so the Dockerfile is rejected (invalid header keyword: from).
 # https://docs.seqera.io/wave/cli/use-cases
-# oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif:9674543663c3d774
-# Build ID bd-9674543663c3d774_1, linux/amd64, 2026-10-29.
+# oras://docker.io/mpampuch/kmerord_ca6126d_linux-amd64_sif:87e5e441b79958ba
+# Build ID bd-87e5e441b79958ba_1, linux/amd64, 2026-10-29.
 set -euo pipefail
 cd "$(dirname "$0")"
 set -a
 source "${HOME}/.secrets/seqera-platform.sh"
 set +a
-wave -i mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test:7205eba8ecbe26c7 \
+wave -i mpampuch/kmerord_ca6126d_linux-amd64:1370912b6f11bb2a \
   --singularity \
   --platform linux/amd64 \
   --freeze \
-  --build-repo mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test \
+  --build-repo mpampuch/kmerord_ca6126d_linux-amd64_sif \
+  --output json \
   --await 90m \
   --log-level DEBUG
 ```
@@ -201,13 +205,13 @@ wave -i mpampuch/smudgeplot_v0.5.4_linux-amd64_20261103-test:7205eba8ecbe26c7 \
 Success prints an ORAS reference without a registry host, for example:
 
 ```text
-oras://mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba
+oras://mpampuch/kmerord_ca6126d_linux-amd64_sif:87e5e441b79958ba
 ```
 
 Prefix `docker.io` before use:
 
 ```text
-oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba
+oras://docker.io/mpampuch/kmerord_ca6126d_linux-amd64_sif:87e5e441b79958ba
 ```
 
 ### 3.3 Pulling Wave ORAS images on IBEX
@@ -217,8 +221,8 @@ oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e4
 ```text
 $ singularity --version
 singularity-ce version 3.9.7
-$ singularity shell oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba
-FATAL:   Unable to handle oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba uri: failed to get checksum for oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba: could not get image manifest, received mediaType: application/vnd.docker.distribution.manifest.v2+json
+$ singularity shell oras://docker.io/mpampuch/kmerord_ca6126d_linux-amd64_sif:87e5e441b79958ba
+FATAL:   Unable to handle oras://docker.io/mpampuch/kmerord_ca6126d_linux-amd64_sif:87e5e441b79958ba uri: failed to get checksum for oras://docker.io/mpampuch/kmerord_ca6126d_linux-amd64_sif:87e5e441b79958ba: could not get image manifest, received mediaType: application/vnd.docker.distribution.manifest.v2+json
 ```
 
 Wave publishes the SIF to Docker Hub as an ORAS artifact, not as a conventional Docker image. Docker Hub returns the Docker schema 2 manifest media type `application/vnd.docker.distribution.manifest.v2+json`. An OCI artifact manifest is generally `application/vnd.oci.image.manifest.v1+json`. SingularityCE 3.9.7 rejects the Docker media type on the `oras://` path.
@@ -226,7 +230,7 @@ Wave publishes the SIF to Docker Hub as an ORAS artifact, not as a conventional 
 Apptainer 1.4.5 accepts the same reference. It chooses the image format from the transport: `docker://` is a container image, `oras://` is an artifact such as a SIF (Apptainer issue #2178). Observed 2026-11-03, after `mamba activate apptainer`:
 
 ```text
-$ apptainer shell oras://docker.io/mpampuch/smudgeplot_v0.5.4_linux-amd64-sif_20261103-test:87e5e441b79958ba
+$ apptainer shell oras://docker.io/mpampuch/kmerord_ca6126d_linux-amd64_sif:87e5e441b79958ba
 INFO:    Downloading oras image
 ...
 Singularity> smudgeplot
